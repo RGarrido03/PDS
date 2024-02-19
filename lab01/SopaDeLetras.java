@@ -18,6 +18,7 @@ public class SopaDeLetras {
 
         while (reader.hasNextLine()) {
             line = reader.nextLine().trim();
+            if (line.isEmpty()) continue;
 
             // Puzzle
             if (Character.isUpperCase(line.charAt(0))) {
