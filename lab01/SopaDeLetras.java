@@ -8,9 +8,10 @@ public class SopaDeLetras {
     private static final int MAX_SIZE = 40;
 
     public static void main(String[] args) throws FileNotFoundException {
-        char[][] puzzle;
+        char[][] puzzle = new char[0][0];
         String[] targetWords;
         String line;
+        int lnCount = 0;
         int size = 0;
 
         Scanner reader = new Scanner(new FileReader("sopaDeLetras.txt"));
@@ -20,41 +21,23 @@ public class SopaDeLetras {
 
             // Puzzle
             if (Character.isUpperCase(line.charAt(0))) {
+                lnCount++;
+
                 if (size == 0) {
                     size = line.length();
-                } else if (size != line.length()) {
-                    System.out.println("The puzzle is inconsistent. Exiting...");
+                    puzzle = new char[size][size];
+                } else if (!isLineValid(line, size, lnCount)) {
                     return;
                 }
 
-                if (size > MAX_SIZE) {
-                    System.out.println("Puzzle size is too big (>40). Exiting...");
-                    return;
-                }
-                if (!isLineUpperCase(line)) {
-                    System.out.println("puzzle has lower case characters. Exiting...");
-                    return;
-                }
-
-                /* puzzle = new char[line.length()][line.length()];
-
-                for (int i = 0; i < line.length(); i++) {
-                    if (puzzle.length == puzzle[0].length) {
-                        // insert in bidimensional array
-                        puzzle[i] = line.toCharArray();
-                        System.out.println(puzzle);
-                        // read next line
-                        line = reader.nextLine();
-                    } else {
-                        System.out.println("Sopa de Letras inválida!");
-                    }
-                } */
+                puzzle[lnCount - 1] = line.toCharArray();
             } else {
                 System.out.println("Words");
             }
         }
-        reader.close();
 
+        printPuzzle(puzzle);
+        reader.close();
     }
 
     private static boolean isLineUpperCase(String line) {
@@ -64,5 +47,27 @@ public class SopaDeLetras {
             }
         }
         return true;
+    }
+
+    private static boolean isLineValid(String line, int size, int lnCount) {
+        if (lnCount > size || size != line.length()) {
+            System.out.println("The puzzle is inconsistent.");
+            return false;
+        }
+        if (size > MAX_SIZE) {
+            System.out.println("Puzzle size is too big (>" + MAX_SIZE + ").");
+            return false;
+        }
+        if (!isLineUpperCase(line)) {
+            System.out.println("The puzzle has lower case characters.");
+            return false;
+        }
+        return true;
+    }
+
+    private static void printPuzzle(char[][] puzzle) {
+        for (char[] line : puzzle) {
+            System.out.println(line);
+        }
     }
 }
