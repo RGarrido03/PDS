@@ -68,6 +68,13 @@ public class SopaDeLetras {
             System.out.println("The puzzle has lower case characters.");
             return false;
         }
+
+        for (char c : line.toCharArray()){
+            if (Character.isDigit(c)){
+                return false
+            }
+        }
+
         return true;
     }
 
