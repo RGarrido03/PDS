@@ -2,6 +2,9 @@ package lab01;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class SopaDeLetras {
@@ -9,7 +12,7 @@ public class SopaDeLetras {
 
     public static void main(String[] args) throws FileNotFoundException {
         char[][] puzzle = new char[0][0];
-        String[] targetWords;
+        List<String> words = new ArrayList<>();
         String line;
         int lnCount = 0;
         int size = 0;
@@ -33,11 +36,13 @@ public class SopaDeLetras {
 
                 puzzle[lnCount - 1] = line.toCharArray();
             } else {
-                System.out.println("Words");
+                String[] tempWords = line.split("[ ,;]");
+                words.addAll(Arrays.asList(tempWords));
             }
         }
 
         printPuzzle(puzzle);
+        System.out.println(words);
         reader.close();
     }
 
