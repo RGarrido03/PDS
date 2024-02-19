@@ -71,7 +71,7 @@ public class SopaDeLetras {
 
         for (char c : line.toCharArray()){
             if (Character.isDigit(c)){
-                return false
+                return false;
             }
         }
 
