@@ -94,7 +94,7 @@ public class SopaDeLetras {
 
                 //Check if word contains in puzzle
                 boolean characterMatch = words.stream()
-                        .anyMatch(word -> word.contains(Character.toString(puzzle[row][col])));
+                        .anyMatch(word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
 
 
                 if (characterMatch){
