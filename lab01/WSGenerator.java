@@ -2,6 +2,7 @@ package lab01;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,10 +34,19 @@ public class WSGenerator {
             System.exit(1);
         }
 
-        createWS(size, output);
+        try {
+            createWS(size, output);
+        } catch (FileNotFoundException e) {
+            System.err.println("File " + output + " isn't found or cannot be created.");
+        }
     }
 
-    private static void createWS(int size, String filename) {
+    private static void createWS(int size, String filename) throws FileNotFoundException {
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            for (String word : words) {
+                writer.println(word);
+            }
+        }
     }
 
     private static boolean isNumeric(String str) {
@@ -58,6 +68,10 @@ public class WSGenerator {
      * @return Whether arguments are valid or not
      */
     private static boolean areArgsValid(String[] args) {
+        if (args.length < 4) {
+            return false;
+        }
+
         boolean basicValidation = args[0].equals("-i") && args[1].endsWith(".txt") && args[2].equals("-s") && isNumeric(
                 args[3]);
         return switch (args.length) {
