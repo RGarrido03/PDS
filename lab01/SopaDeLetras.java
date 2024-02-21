@@ -35,6 +35,7 @@ public class SopaDeLetras {
                 }
 
                 puzzle[lnCount - 1] = line.toCharArray();
+
             } else {
                 String[] tempWords = line.split("[ ,;]");
                 words.addAll(Arrays.asList(tempWords));
@@ -42,7 +43,7 @@ public class SopaDeLetras {
 
         }
 
-        printPuzzle(puzzle);
+        printPuzzle(puzzle, words);
         System.out.println(words);
         reader.close();
     }
@@ -80,17 +81,31 @@ public class SopaDeLetras {
         return true;
     }
 
-    private static void printPuzzle(char[][] puzzle) {
+    private static void printPuzzle(char[][] puzzle, List<String> words) {
         for (char[] line : puzzle) {
             System.out.println(line);
         }
 
         for (int i=0; i < puzzle.length; i++){
             for (int j=0; j < puzzle[0].length; j++){
-                System.out.print(puzzle[i][j] + "");
+
+                int row = i;
+                int col = j;
+
+                //Check if word contains in puzzle
+                boolean characterMatch = words.stream()
+                        .anyMatch(word -> word.contains(Character.toString(puzzle[row][col])));
+
+
+                if (characterMatch){
+                    System.out.print(puzzle[row][col]);
+                } else {
+                    System.out.print(".");
+                }
+
             }
+            System.out.println();
         }
     }
-
 
 }
