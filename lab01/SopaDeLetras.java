@@ -39,12 +39,14 @@ public class SopaDeLetras {
                 String[] tempWords = line.split("[ ,;]");
                 words.addAll(Arrays.asList(tempWords));
             }
+
         }
 
         printPuzzle(puzzle);
         System.out.println(words);
         reader.close();
     }
+
 
     private static boolean isLineUpperCase(String line) {
         for (char c : line.toCharArray()) {
@@ -82,5 +84,13 @@ public class SopaDeLetras {
         for (char[] line : puzzle) {
             System.out.println(line);
         }
+
+        for (int i=0; i < puzzle.length; i++){
+            for (int j=0; j < puzzle[0].length; j++){
+                System.out.print(puzzle[i][j] + "");
+            }
+        }
     }
+
+
 }
