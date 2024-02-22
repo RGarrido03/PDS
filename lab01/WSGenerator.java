@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WSGenerator {
-    private static final List<String> words = new ArrayList<>();
+    private static final List<Word> words = new ArrayList<>();
 
     public static void main(String[] args) {
         if (!areArgsValid(args)) {
@@ -25,9 +25,8 @@ public class WSGenerator {
             Scanner scanner = new Scanner(new FileReader(input));
 
             while (scanner.hasNextLine()) {
-                words.addAll(
-                        Arrays.asList(scanner.nextLine().trim().split("[ ,;]"))
-                );
+                Arrays.stream(scanner.nextLine().trim().split("[ ,;]"))
+                      .forEach(word -> words.add(new Word(word)));
             }
         } catch (FileNotFoundException e) {
             System.err.println("File not found.");
