@@ -89,25 +89,25 @@ public class SopaDeLetras {
             System.out.println(line);
         }
 
-        for (int i = 0; i < puzzle.length; i++) {
-            for (int j = 0; j < puzzle[0].length; j++) {
-
-                int row = i;
-                int col = j;
-
-                //Check if word contains in puzzle
-                boolean characterMatch = words.stream().anyMatch(word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
-
-
-                if (characterMatch) {
-                    System.out.print(puzzle[row][col]);
-                } else {
-                    System.out.print(".");
-                }
-
-            }
-            System.out.println();
-        }
+//        for (int i = 0; i < puzzle.length; i++) {
+//            for (int j = 0; j < puzzle[0].length; j++) {
+//
+//                int row = i;
+//                int col = j;
+//
+//                //Check if word contains in puzzle
+//                boolean characterMatch = words.stream().anyMatch(word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
+//
+//
+//                if (characterMatch) {
+//                    System.out.print(puzzle[row][col]);
+//                } else {
+//                    System.out.print(".");
+//                }
+//
+//            }
+//            System.out.println();
+//        }
     }
 
     private static void solvePuzzle(char[][] puzzle, List<String> words) {
@@ -133,8 +133,9 @@ public class SopaDeLetras {
 
         for (int[] coordinate : positions) {
             String result = testCoordinate(puzzle, word, coordinate);
-            if(result!=null){
-                System.out.println(coordinate[0] + "," + coordinate[1] + " - " + result);
+
+            if(result != null){
+                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word, word.length(), (coordinate[0]+1),",", (coordinate[1]+1), result);
                 break;
             }
         }
@@ -143,53 +144,53 @@ public class SopaDeLetras {
     private static String testCoordinate(char[][] puzzle, String word, int[] coordinate) {
         char[] letters = word.toUpperCase().toCharArray();
         if (testNextCoordinate(puzzle, letters, coordinate, Direction.up)) {
-            return "up";
+            return "Up";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.down)) {
-            return "down";
+            return "Down";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.left)) {
-            return "left";
+            return "Left";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.right)) {
-            return "right";
+            return "Right";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.upLeft)) {
-            return "upLeft";
+            return "UpLeft";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.upRight)) {
-            return "upRight";
+            return "UpRight";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downLeft)) {
-            return "downLeft";
+            return "DownLeft";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downRight)) {
-            return "downRight";
+            return "DownRight";
         }
         else {
             return null;
         }
     }
 
-    private static boolean testNextCoordinate(char[][] puzzle, char[] letters, int[] coordinate, Direction direction) {
+    private static boolean testNextCoordinate(char[][] puzzle, char[] letters, int[] coord, Direction direction) {
         int[] nextCoordinate = null;
         switch (direction) {
             case up:
-                nextCoordinate = new int[]{coordinate[0] - 1, coordinate[1]};
+                nextCoordinate = new int[]{coord[0] - 1, coord[1]};
                 break;
             case down:
-                nextCoordinate = new int[]{coordinate[0] + 1, coordinate[1]};
+                nextCoordinate = new int[]{coord[0] + 1, coord[1]};
                 break;
             case left:
-                nextCoordinate = new int[]{coordinate[0], coordinate[1] - 1};
+                nextCoordinate = new int[]{coord[0], coord[1] - 1};
                 break;
             case right:
-                nextCoordinate = new int[]{coordinate[0], coordinate[1] + 1};
+                nextCoordinate = new int[]{coord[0], coord[1] + 1};
                 break;
             case upLeft:
-                nextCoordinate = new int[]{coordinate[0] - 1, coordinate[1] - 1};
+                nextCoordinate = new int[]{coord[0] - 1, coord[1] - 1};
                 break;
             case upRight:
-                nextCoordinate = new int[]{coordinate[0] - 1, coordinate[1] + 1};
+                nextCoordinate = new int[]{coord[0] - 1, coord[1] + 1};
                 break;
             case downLeft:
-                nextCoordinate = new int[]{coordinate[0] + 1, coordinate[1] - 1};
+                nextCoordinate = new int[]{coord[0] + 1, coord[1] - 1};
                 break;
             case downRight:
-                nextCoordinate = new int[]{coordinate[0] + 1, coordinate[1] + 1};
+                nextCoordinate = new int[]{coord[0] + 1, coord[1] + 1};
                 break;
         }
 
