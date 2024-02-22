@@ -43,19 +43,10 @@ public class WSGenerator {
 
     private static void createWS(int size, String filename) throws FileNotFoundException {
         try (PrintWriter writer = new PrintWriter(filename)) {
-            for (String word : words) {
-                writer.println(word);
+            for (char[] line : puzzle) {
+                Utils.printToConsoleAndFile(Arrays.toString(line), writer);
             }
         }
-    }
-
-    private static boolean isNumeric(String str) {
-        try {
-            Integer.parseInt(str);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -72,8 +63,9 @@ public class WSGenerator {
             return false;
         }
 
-        boolean basicValidation = args[0].equals("-i") && args[1].endsWith(".txt") && args[2].equals("-s") && isNumeric(
-                args[3]);
+        boolean basicValidation =
+                args[0].equals("-i") && args[1].endsWith(".txt") && args[2].equals("-s") && Utils.isNumeric(
+                        args[3]);
         return switch (args.length) {
             case 4 -> basicValidation;
             case 6 -> basicValidation && args[4].equals("-o") && args[5].endsWith(".txt");
