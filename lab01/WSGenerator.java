@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class WSGenerator {
     private static final List<Word> words = new ArrayList<>();
@@ -41,11 +42,56 @@ public class WSGenerator {
     }
 
     private static void createWS(int size, String filename) throws FileNotFoundException {
+        char[][] puzzle = Utils.initializePuzzle(size);
+
+        for (Word word : words) {
+            if (word.getLength() > size) {
+                System.err.println("Word " + word + " is too long.");
+                System.exit(1);
+            }
+            generatePosition(word, puzzle);
+        }
+
         try (PrintWriter writer = new PrintWriter(filename)) {
             for (char[] line : puzzle) {
                 Utils.printToConsoleAndFile(Arrays.toString(line), writer);
             }
         }
+    }
+
+    private static void generatePosition(Word word, char[][] puzzle) {
+        Direction direction = Utils.randomDirection();
+        int[] rowBoundaries = getRowBoundaries(puzzle, direction, word.getLength());
+        int[] colBoundaries = getColBoundaries(puzzle, direction, word.getLength());
+
+        int row = ThreadLocalRandom.current().nextInt(rowBoundaries[0], rowBoundaries[1] + 1);
+        int col = ThreadLocalRandom.current().nextInt(colBoundaries[0], colBoundaries[1] + 1);
+
+        word.setRow(row);
+        word.setCol(col);
+        word.setDirection(direction);
+    }
+
+    private static int[] getRowBoundaries(char[][] puzzle, Direction direction, int length) {
+        int difference = puzzle.length - length;
+        int end = puzzle.length - 1;
+
+        return switch (direction) {
+            case up, upLeft, upRight -> new int[]{end - difference, end};
+            case down, downLeft, downRight -> new int[]{0, difference};
+            case left, right -> new int[]{0, end};
+        };
+    }
+
+    private static int[] getColBoundaries(char[][] puzzle, Direction direction, int length) {
+        int difference = puzzle.length - length;
+        int end = puzzle.length - 1;
+
+        return switch (direction) {
+            case up, down -> new int[]{0, end};
+            case left, upLeft, downLeft -> new int[]{end - difference, end};
+            case right, upRight, downRight -> new int[]{0, difference};
+        };
     }
 
     /**

@@ -1,8 +1,11 @@
 package lab01;
 
 import java.io.PrintWriter;
+import java.util.Random;
 
 public class Utils {
+    private static final Random RANDOM = new Random();
+
     public static char[][] initializePuzzle(int size) {
         char[][] puzzle = new char[size][size];
         for (int i = 0; i < size; i++) {
@@ -25,5 +28,10 @@ public class Utils {
             return false;
         }
         return true;
+    }
+
+    public static Direction randomDirection() {
+        int x = RANDOM.nextInt(Direction.values().length);
+        return Direction.values()[x];
     }
 }
