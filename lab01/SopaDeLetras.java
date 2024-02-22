@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class SopaDeLetras {
     private static final int MAX_SIZE = 40;
@@ -96,7 +94,8 @@ public class SopaDeLetras {
                 int col = j;
 
                 //Check if word contains in puzzle
-                boolean characterMatch = words.stream().anyMatch(word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
+                boolean characterMatch = words.stream().anyMatch(
+                        word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
 
 
                 if (characterMatch) {
@@ -133,7 +132,7 @@ public class SopaDeLetras {
 
         for (int[] coordinate : positions) {
             String result = testCoordinate(puzzle, word, coordinate);
-            if(result!=null){
+            if (result != null) {
                 System.out.println(coordinate[0] + "," + coordinate[1] + " - " + result);
                 break;
             }
@@ -158,8 +157,7 @@ public class SopaDeLetras {
             return "downLeft";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downRight)) {
             return "downRight";
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -194,11 +192,11 @@ public class SopaDeLetras {
         }
 
         if (validCoordinate(puzzle, nextCoordinate) && verifyLetter(puzzle, nextCoordinate, letters[1])) {
-            if(letters.length==2) {
+            if (letters.length == 2) {
                 return true;
-            }
-            else {
-                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate, direction);
+            } else {
+                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate,
+                                          direction);
             }
         } else {
             return false;
@@ -211,9 +209,5 @@ public class SopaDeLetras {
 
     private static boolean verifyLetter(char[][] puzzle, int[] coordinate, char charToVerify) {
         return puzzle[coordinate[0]][coordinate[1]] == Character.toUpperCase(charToVerify);
-    }
-
-    public enum Direction {
-        up, down, left, right, upLeft, upRight, downLeft, downRight
     }
 }
