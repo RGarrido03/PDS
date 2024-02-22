@@ -50,6 +50,7 @@ public class WSGenerator {
                 System.exit(1);
             }
             generatePosition(word, puzzle);
+            updatePuzzle(word.getWord(), puzzle, word.getRow(), word.getCol(), word.getDirection());
         }
 
         try (PrintWriter writer = new PrintWriter(filename)) {
@@ -70,6 +71,28 @@ public class WSGenerator {
         word.setRow(row);
         word.setCol(col);
         word.setDirection(direction);
+    }
+
+    private static void updatePuzzle(String word, char[][] puzzle, int row, int col, Direction direction) {
+        if (word.isEmpty()) {
+            return;
+        }
+
+        puzzle[col][row] = word.charAt(0);
+
+        int nextRow = switch (direction) {
+            case up, upLeft, upRight -> row - 1;
+            case down, downLeft, downRight -> row + 1;
+            case left, right -> row;
+        };
+
+        int nextCol = switch (direction) {
+            case up, down -> col;
+            case left, upLeft, downLeft -> col - 1;
+            case right, upRight, downRight -> col + 1;
+        };
+
+        updatePuzzle(word.substring(1), puzzle, nextRow, nextCol, direction);
     }
 
     private static int[] getRowBoundaries(char[][] puzzle, Direction direction, int length) {
