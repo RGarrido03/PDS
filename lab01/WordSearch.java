@@ -112,7 +112,7 @@ public class WordSearch {
             return;
         }
 
-        puzzle[row][col] = word.charAt(0);
+        puzzle[row][col] = Character.toUpperCase(word.charAt(0));
 
         int nextRow = getNextRow(row, direction);
         int nextCol = getNextCol(col, direction);
