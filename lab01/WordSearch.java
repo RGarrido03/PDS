@@ -205,15 +205,16 @@ public class WordSearch {
      */
     public void generatePosition(Word word) {
         int row, col;
-        Direction direction = Utils.randomDirection();
-
-        int[] rowBoundaries = this.getRowBoundaries(direction, word.getLength());
-        int[] colBoundaries = this.getColBoundaries(direction, word.getLength());
+        Direction direction;
 
         do {
+            direction = Utils.randomDirection();
+
+            int[] rowBoundaries = this.getRowBoundaries(direction, word.getLength());
+            int[] colBoundaries = this.getColBoundaries(direction, word.getLength());
+
             row = ThreadLocalRandom.current().nextInt(rowBoundaries[0], rowBoundaries[1] + 1);
             col = ThreadLocalRandom.current().nextInt(colBoundaries[0], colBoundaries[1] + 1);
-            System.out.println(word.getWord() + " " + row + " " + col);
         } while (isWordOverlapping(word.getWord(), row, col, direction));
 
         word.setRow(row);
