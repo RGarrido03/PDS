@@ -11,13 +11,19 @@ import java.util.stream.IntStream;
 
 public class SopaDeLetras {
     private static final int MAX_SIZE = 40;
+    static List<Word> words = new ArrayList<>();
 
     public static void main(String[] args) throws FileNotFoundException {
         char[][] puzzle = new char[0][0];
-        List<String> words = new ArrayList<>();
         String line;
         int lnCount = 0;
         int size = 0;
+
+        /*if (args.length < 1){
+            System.out.println("ERROR: Missing one argument with file of word solver");
+            System.exit(1);
+        }*/
+        System.out.println("Begin");
 
         Scanner reader = new Scanner(new FileReader("sopaDeLetras.txt"));
 
@@ -40,14 +46,25 @@ public class SopaDeLetras {
 
             } else {
                 String[] tempWords = line.split("[ ,;]");
-                words.addAll(Arrays.asList(tempWords));
+                words.addAll(Arrays.stream(tempWords).map(Word::new).toList());
             }
 
         }
 
-        printPuzzle(puzzle, words);
-        System.out.println(words);
+        List<String> wordStrList = words.stream().map(Word::getWord).toList();
+
+        printPuzzle(puzzle, wordStrList);
+        System.out.println(wordStrList);
         solvePuzzle(puzzle, words);
+
+        WordSearch wordSearch = new WordSearch(size);
+
+        for(Word word: words){
+            wordSearch.addWord(word.getWord(), word.getRow(),word.getCol(), word.getDirection());
+        }
+
+        wordSearch.printPuzzle();
+
         reader.close();
     }
 
@@ -110,14 +127,14 @@ public class SopaDeLetras {
 //        }
     }
 
-    private static void solvePuzzle(char[][] puzzle, List<String> words) {
-        for (String word : words) {
+    private static void solvePuzzle(char[][] puzzle, List<Word> words) {
+        for (Word word : words) {
             findWord(puzzle, word);
         }
     }
 
-    private static void findWord(char[][] puzzle, String word) {
-        char[] letters = word.toUpperCase().toCharArray();
+    private static void findWord(char[][] puzzle, Word word) {
+        char[] letters = word.getWord().toUpperCase().toCharArray();
         List<int[]> positions = new ArrayList<>();
         for (int i = 0; i < puzzle.length; i++) {
             String allLettersInLine = new String(puzzle[i]);
@@ -132,33 +149,40 @@ public class SopaDeLetras {
         }
 
         for (int[] coordinate : positions) {
-            String result = testCoordinate(puzzle, word, coordinate);
+            String result = testCoordinate(puzzle, word.getWord(), coordinate);
 
             if(result != null){
-                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word, word.length(), (coordinate[0]+1),",", (coordinate[1]+1), result);
+
+                word.setRow(coordinate[0]);
+                word.setCol(coordinate[1]);
+                word.setDirection(Direction.valueOf(result));
+
+                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(),",", word.getCol(), result);
                 break;
             }
         }
+
+
     }
 
     private static String testCoordinate(char[][] puzzle, String word, int[] coordinate) {
         char[] letters = word.toUpperCase().toCharArray();
         if (testNextCoordinate(puzzle, letters, coordinate, Direction.up)) {
-            return "Up";
+            return "up";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.down)) {
-            return "Down";
+            return "down";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.left)) {
-            return "Left";
+            return "left";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.right)) {
-            return "Right";
+            return "right";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.upLeft)) {
-            return "UpLeft";
+            return "upLeft";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.upRight)) {
-            return "UpRight";
+            return "upRight";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downLeft)) {
-            return "DownLeft";
+            return "downLeft";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downRight)) {
-            return "DownRight";
+            return "downRight";
         }
         else {
             return null;
@@ -212,9 +236,5 @@ public class SopaDeLetras {
 
     private static boolean verifyLetter(char[][] puzzle, int[] coordinate, char charToVerify) {
         return puzzle[coordinate[0]][coordinate[1]] == Character.toUpperCase(charToVerify);
-    }
-
-    public enum Direction {
-        up, down, left, right, upLeft, upRight, downLeft, downRight
     }
 }
