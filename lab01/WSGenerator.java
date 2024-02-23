@@ -33,14 +33,15 @@ public class WSGenerator {
             System.exit(1);
         }
 
-        try {
-            createWS(size, output);
+        try (PrintWriter writer = new PrintWriter(output)) {
+            WordSearch wordSearch = createWS(size);
+            wordSearch.printPuzzle(writer);
         } catch (FileNotFoundException e) {
             System.err.println("File " + output + " isn't found or cannot be created.");
         }
     }
 
-    private static void createWS(int size, String filename) throws FileNotFoundException {
+    private static WordSearch createWS(int size) {
         WordSearch puzzle = new WordSearch(size);
 
         for (Word word : words) {
@@ -52,9 +53,7 @@ public class WSGenerator {
             puzzle.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
         }
 
-        try (PrintWriter writer = new PrintWriter(filename)) {
-            puzzle.printPuzzle(writer);
-        }
+        return puzzle;
     }
 
     /**
