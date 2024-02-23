@@ -183,12 +183,12 @@ public class WordSearch {
         }
 
         char posChar = this.getChar(row, col);
-        if (posChar != '.' && posChar != word.charAt(0)) {
+        if (posChar != '.' && posChar != Character.toUpperCase(word.charAt(0))) {
             return true;
         }
 
         int nextRow = getNextRow(row, direction);
-        int nextCol = getNextCol(row, direction);
+        int nextCol = getNextCol(col, direction);
 
         return isWordOverlapping(word.substring(1), nextRow, nextCol, direction);
     }
