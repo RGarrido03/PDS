@@ -2,12 +2,14 @@ package lab01;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.*;
 
 public class SopaDeLetras {
     private static final int MAX_SIZE = 40;
@@ -18,6 +20,8 @@ public class SopaDeLetras {
         String line;
         int lnCount = 0;
         int size = 0;
+
+        PrintWriter pw = new PrintWriter("out1");
 
         /*if (args.length < 1){
             System.out.println("ERROR: Missing one argument with file of word solver");
@@ -63,8 +67,8 @@ public class SopaDeLetras {
             wordSearch.addWord(word.getWord(), word.getRow(),word.getCol(), word.getDirection());
         }
 
-        wordSearch.printPuzzle();
-
+        wordSearch.printPuzzle(pw);
+        pw.close();
         reader.close();
     }
 
@@ -157,7 +161,7 @@ public class SopaDeLetras {
                 word.setCol(coordinate[1]);
                 word.setDirection(Direction.valueOf(result));
 
-                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(),",", word.getCol(), result);
+                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(),",", word.getCol(), Utils.capitalizeString(word.getDirection().toString()));
                 break;
             }
         }

@@ -19,7 +19,7 @@ public class Utils {
         return Direction.values()[x];
     }
 
-    public String capitalizeString(String string) {
+    public static String capitalizeString(String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 }
