@@ -6,16 +6,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SopaDeLetras {
     private static final int MAX_SIZE = 40;
+    static List<Word> words = new ArrayList<>();
 
     public static void main(String[] args) throws FileNotFoundException {
         char[][] puzzle = new char[0][0];
-        List<String> words = new ArrayList<>();
         String line;
         int lnCount = 0;
         int size = 0;
+
+        /*if (args.length < 1){
+            System.out.println("ERROR: Missing one argument with file of word solver");
+            System.exit(1);
+        }*/
+        System.out.println("Begin");
 
         Scanner reader = new Scanner(new FileReader("sopaDeLetras.txt"));
 
@@ -38,14 +46,25 @@ public class SopaDeLetras {
 
             } else {
                 String[] tempWords = line.split("[ ,;]");
-                words.addAll(Arrays.asList(tempWords));
+                words.addAll(Arrays.stream(tempWords).map(Word::new).toList());
             }
 
         }
 
-        printPuzzle(puzzle, words);
-        System.out.println(words);
+        List<String> wordStrList = words.stream().map(Word::getWord).toList();
+
+        printPuzzle(puzzle, wordStrList);
+        System.out.println(wordStrList);
         solvePuzzle(puzzle, words);
+
+        WordSearch wordSearch = new WordSearch(size);
+
+        for(Word word: words){
+            wordSearch.addWord(word.getWord(), word.getRow(),word.getCol(), word.getDirection());
+        }
+
+        wordSearch.printPuzzle();
+
         reader.close();
     }
 
@@ -87,36 +106,35 @@ public class SopaDeLetras {
             System.out.println(line);
         }
 
-        for (int i = 0; i < puzzle.length; i++) {
-            for (int j = 0; j < puzzle[0].length; j++) {
-
-                int row = i;
-                int col = j;
-
-                //Check if word contains in puzzle
-                boolean characterMatch = words.stream().anyMatch(
-                        word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
-
-
-                if (characterMatch) {
-                    System.out.print(puzzle[row][col]);
-                } else {
-                    System.out.print(".");
-                }
-
-            }
-            System.out.println();
-        }
+//        for (int i = 0; i < puzzle.length; i++) {
+//            for (int j = 0; j < puzzle[0].length; j++) {
+//
+//                int row = i;
+//                int col = j;
+//
+//                //Check if word contains in puzzle
+//                boolean characterMatch = words.stream().anyMatch(word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
+//
+//
+//                if (characterMatch) {
+//                    System.out.print(puzzle[row][col]);
+//                } else {
+//                    System.out.print(".");
+//                }
+//
+//            }
+//            System.out.println();
+//        }
     }
 
-    private static void solvePuzzle(char[][] puzzle, List<String> words) {
-        for (String word : words) {
+    private static void solvePuzzle(char[][] puzzle, List<Word> words) {
+        for (Word word : words) {
             findWord(puzzle, word);
         }
     }
 
-    private static void findWord(char[][] puzzle, String word) {
-        char[] letters = word.toUpperCase().toCharArray();
+    private static void findWord(char[][] puzzle, Word word) {
+        char[] letters = word.getWord().toUpperCase().toCharArray();
         List<int[]> positions = new ArrayList<>();
         for (int i = 0; i < puzzle.length; i++) {
             String allLettersInLine = new String(puzzle[i]);
@@ -131,12 +149,20 @@ public class SopaDeLetras {
         }
 
         for (int[] coordinate : positions) {
-            String result = testCoordinate(puzzle, word, coordinate);
-            if (result != null) {
-                System.out.println(coordinate[0] + "," + coordinate[1] + " - " + result);
+            String result = testCoordinate(puzzle, word.getWord(), coordinate);
+
+            if(result != null){
+
+                word.setRow(coordinate[0]);
+                word.setCol(coordinate[1]);
+                word.setDirection(Direction.valueOf(result));
+
+                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(),",", word.getCol(), result);
                 break;
             }
         }
+
+
     }
 
     private static String testCoordinate(char[][] puzzle, String word, int[] coordinate) {
@@ -157,46 +183,47 @@ public class SopaDeLetras {
             return "downLeft";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downRight)) {
             return "downRight";
-        } else {
+        }
+        else {
             return null;
         }
     }
 
-    private static boolean testNextCoordinate(char[][] puzzle, char[] letters, int[] coordinate, Direction direction) {
+    private static boolean testNextCoordinate(char[][] puzzle, char[] letters, int[] coord, Direction direction) {
         int[] nextCoordinate = null;
         switch (direction) {
             case up:
-                nextCoordinate = new int[]{coordinate[0] - 1, coordinate[1]};
+                nextCoordinate = new int[]{coord[0] - 1, coord[1]};
                 break;
             case down:
-                nextCoordinate = new int[]{coordinate[0] + 1, coordinate[1]};
+                nextCoordinate = new int[]{coord[0] + 1, coord[1]};
                 break;
             case left:
-                nextCoordinate = new int[]{coordinate[0], coordinate[1] - 1};
+                nextCoordinate = new int[]{coord[0], coord[1] - 1};
                 break;
             case right:
-                nextCoordinate = new int[]{coordinate[0], coordinate[1] + 1};
+                nextCoordinate = new int[]{coord[0], coord[1] + 1};
                 break;
             case upLeft:
-                nextCoordinate = new int[]{coordinate[0] - 1, coordinate[1] - 1};
+                nextCoordinate = new int[]{coord[0] - 1, coord[1] - 1};
                 break;
             case upRight:
-                nextCoordinate = new int[]{coordinate[0] - 1, coordinate[1] + 1};
+                nextCoordinate = new int[]{coord[0] - 1, coord[1] + 1};
                 break;
             case downLeft:
-                nextCoordinate = new int[]{coordinate[0] + 1, coordinate[1] - 1};
+                nextCoordinate = new int[]{coord[0] + 1, coord[1] - 1};
                 break;
             case downRight:
-                nextCoordinate = new int[]{coordinate[0] + 1, coordinate[1] + 1};
+                nextCoordinate = new int[]{coord[0] + 1, coord[1] + 1};
                 break;
         }
 
         if (validCoordinate(puzzle, nextCoordinate) && verifyLetter(puzzle, nextCoordinate, letters[1])) {
-            if (letters.length == 2) {
+            if(letters.length==2) {
                 return true;
-            } else {
-                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate,
-                                          direction);
+            }
+            else {
+                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate, direction);
             }
         } else {
             return false;
