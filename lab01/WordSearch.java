@@ -51,8 +51,9 @@ public class WordSearch {
     public void printPuzzle(PrintWriter out) {
         for (int i = 0; i < this.getSize(); i++) {
             for (int j = 0; j < this.getSize(); j++) {
-                System.out.print(this.getChar(i, j));
-                if (out != null) out.print(this.getChar(i, j));
+                String print = this.getChar(i, j) + " ";
+                System.out.print(print);
+                if (out != null) out.print(print);
             }
             System.out.println();
             if (out != null) out.println();
