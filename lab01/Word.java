@@ -41,12 +41,8 @@ public class Word {
      */
     public static void printListOfWords(List<Word> words, PrintWriter out) {
         for (Word word : words) {
-            String print =
-                    String.format("%-15s%-10d%-10s%-15s", word.getWord(), word.getLength(),
-                                  word.getRow() + "," + word.getCol(),
-                                  Utils.capitalizeString(word.getDirection().toString()));
-            out.println(print);
-            System.out.println(print);
+            out.println(word.toString());
+            System.out.println(word);
         }
     }
 
@@ -80,5 +76,12 @@ public class Word {
 
     public int getLength() {
         return word.length();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%-15s%-10d%-10s%-15s", this.getWord(), this.getLength(),
+                             this.getRow() + "," + this.getCol(),
+                             Utils.capitalizeString(this.getDirection().toString()));
     }
 }
