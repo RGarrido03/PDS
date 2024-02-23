@@ -52,11 +52,49 @@ public class WordSearch {
         for (int i = 0; i < this.getSize(); i++) {
             for (int j = 0; j < this.getSize(); j++) {
                 System.out.print(this.getChar(i, j));
-                out.print(this.getChar(i, j));
+                if (out != null) out.print(this.getChar(i, j));
             }
             System.out.println();
-            out.println();
+            if (out != null) out.println();
         }
+    }
+
+    /**
+     * <b>Get next row.</b>
+     * <p>
+     * Given a row and a direction, return the next row.
+     * Returns the same row if it exceeds the puzzle boundaries.
+     * Useful for iterating over a word.
+     *
+     * @param row       Current row.
+     * @param direction Desired direction.
+     * @return Next row.
+     */
+    public int getNextRow(int row, Direction direction) {
+        return switch (direction) {
+            case up, upLeft, upRight -> row == 0 ? row : row - 1;
+            case down, downLeft, downRight -> row == this.getSize() - 1 ? row : row + 1;
+            case left, right -> row;
+        };
+    }
+
+    /**
+     * <b>Get next column.</b>
+     * <p>
+     * Given a column and a direction, return the next column.
+     * Returns the same column if it exceeds the puzzle boundaries.
+     * Useful for iterating over a word.
+     *
+     * @param col       Current column.
+     * @param direction Desired direction.
+     * @return Next column.
+     */
+    public int getNextCol(int col, Direction direction) {
+        return switch (direction) {
+            case up, down -> col;
+            case left, upLeft, downLeft -> col == 0 ? col : col - 1;
+            case right, upRight, downRight -> col == this.getSize() - 1 ? col : col + 1;
+        };
     }
 
     /**
@@ -76,17 +114,8 @@ public class WordSearch {
 
         puzzle[row][col] = word.charAt(0);
 
-        int nextRow = switch (direction) {
-            case up, upLeft, upRight -> row - 1;
-            case down, downLeft, downRight -> row + 1;
-            case left, right -> row;
-        };
-
-        int nextCol = switch (direction) {
-            case up, down -> col;
-            case left, upLeft, downLeft -> col - 1;
-            case right, upRight, downRight -> col + 1;
-        };
+        int nextRow = getNextRow(row, direction);
+        int nextCol = getNextCol(row, direction);
 
         addWord(word.substring(1), nextRow, nextCol, direction);
     }
