@@ -115,7 +115,7 @@ public class WordSearch {
         puzzle[row][col] = word.charAt(0);
 
         int nextRow = getNextRow(row, direction);
-        int nextCol = getNextCol(row, direction);
+        int nextCol = getNextCol(col, direction);
 
         addWord(word.substring(1), nextRow, nextCol, direction);
     }
@@ -163,6 +163,36 @@ public class WordSearch {
     }
 
     /**
+     * <b>Check if a word wrongly overlaps the puzzle.</b>
+     * <p>
+     * When creating a word search puzzle and adding words to it, words may overlap each other on some positions,
+     * causing one of the them to be wrongly written.
+     * <p>
+     * This function evaluates if this situation happens.
+     *
+     * @param word      Desired word.
+     * @param row       Current row.
+     * @param col       Current column.
+     * @param direction Word direction.
+     * @return Whether it overlaps other words or not.
+     */
+    public boolean isWordOverlapping(String word, int row, int col, Direction direction) {
+        if (word.isEmpty()) {
+            return false;
+        }
+
+        char posChar = this.getChar(row, col);
+        if (posChar != '.' && posChar != word.charAt(0)) {
+            return true;
+        }
+
+        int nextRow = getNextRow(row, direction);
+        int nextCol = getNextCol(row, direction);
+
+        return isWordOverlapping(word.substring(1), nextRow, nextCol, direction);
+    }
+
+    /**
      * <b>Get a position for a word</b>.
      * <p>
      * This function generates a position and updates the word passed as argument.
@@ -174,12 +204,17 @@ public class WordSearch {
      * @param word Word that needs a position in the puzzle.
      */
     public void generatePosition(Word word) {
+        int row, col;
         Direction direction = Utils.randomDirection();
+
         int[] rowBoundaries = this.getRowBoundaries(direction, word.getLength());
         int[] colBoundaries = this.getColBoundaries(direction, word.getLength());
 
-        int row = ThreadLocalRandom.current().nextInt(rowBoundaries[0], rowBoundaries[1] + 1);
-        int col = ThreadLocalRandom.current().nextInt(colBoundaries[0], colBoundaries[1] + 1);
+        do {
+            row = ThreadLocalRandom.current().nextInt(rowBoundaries[0], rowBoundaries[1] + 1);
+            col = ThreadLocalRandom.current().nextInt(colBoundaries[0], colBoundaries[1] + 1);
+            System.out.println(word.getWord() + " " + row + " " + col);
+        } while (isWordOverlapping(word.getWord(), row, col, direction));
 
         word.setRow(row);
         word.setCol(col);
