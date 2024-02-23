@@ -52,10 +52,10 @@ public class WordSearch {
         for (int i = 0; i < this.getSize(); i++) {
             for (int j = 0; j < this.getSize(); j++) {
                 System.out.print(this.getChar(i, j));
-                out.print(this.getChar(i, j));
+                if (out != null) out.print(this.getChar(i, j));
             }
             System.out.println();
-            out.println();
+            if (out != null) out.println();
         }
     }
 
