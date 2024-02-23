@@ -18,4 +18,8 @@ public class Utils {
         int x = RANDOM.nextInt(Direction.values().length);
         return Direction.values()[x];
     }
+
+    public String capitalizeString(String string) {
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
 }
