@@ -1,7 +1,10 @@
 package lab01;
 
+import java.io.PrintWriter;
+import java.util.List;
+
 public class Word {
-    private String word;
+    private final String word;
     private int row;
     private int col;
     private Direction direction;
@@ -17,12 +20,38 @@ public class Word {
         this.direction = direction;
     }
 
-    public String getWord() {
-        return word;
+    /**
+     * <b>Print the word list</b> to <code>System.out</code>.
+     * <p>
+     * Output: Word | Length | Position | Direction
+     *
+     * @param words List of words.
+     */
+    public static void printListOfWords(List<Word> words) {
+        printListOfWords(words, null);
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    /**
+     * <b>Print the word list</b> to <code>System.out</code> and a file.
+     * <p>
+     * Output: Word | Length | Position | Direction
+     *
+     * @param words List of words.
+     * @param out   File to write.
+     */
+    public static void printListOfWords(List<Word> words, PrintWriter out) {
+        for (Word word : words) {
+            String print =
+                    String.format("%-15s%-10d%-10s%-15s", word.getWord(), word.getLength(),
+                                  word.getRow() + "," + word.getCol(),
+                                  Utils.capitalizeString(word.getDirection().toString()));
+            out.println(print);
+            System.out.println(print);
+        }
+    }
+
+    public String getWord() {
+        return word;
     }
 
     public int getRow() {

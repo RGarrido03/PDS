@@ -35,6 +35,7 @@ public class WSGenerator {
 
         try (PrintWriter writer = new PrintWriter(output)) {
             WordSearch wordSearch = createWS(size);
+            Word.printListOfWords(words, writer);
             wordSearch.printPuzzle(writer);
         } catch (FileNotFoundException e) {
             System.err.println("File " + output + " isn't found or cannot be created.");
