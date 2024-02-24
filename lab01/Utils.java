@@ -14,6 +14,10 @@ public class Utils {
         return true;
     }
 
+    public static boolean isLineUpperCase(String line) {
+        return line.equals(line.toUpperCase());
+    }
+
     public static Direction randomDirection() {
         int x = RANDOM.nextInt(Direction.values().length);
         return Direction.values()[x];

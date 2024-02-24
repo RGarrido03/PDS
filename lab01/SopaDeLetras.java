@@ -68,16 +68,6 @@ public class SopaDeLetras {
         reader.close();
     }
 
-
-    private static boolean isLineUpperCase(String line) {
-        for (char c : line.toCharArray()) {
-            if (Character.isLowerCase(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private static boolean isLineValid(String line, int size, int lnCount) {
         if (lnCount > size || size != line.length()) {
             System.out.println("The puzzle is inconsistent.");
@@ -87,7 +77,7 @@ public class SopaDeLetras {
             System.out.println("Puzzle size is too big (>" + MAX_SIZE + ").");
             return false;
         }
-        if (!isLineUpperCase(line)) {
+        if (!Utils.isLineUpperCase(line)) {
             System.out.println("The puzzle has lower case characters.");
             return false;
         }
@@ -102,9 +92,7 @@ public class SopaDeLetras {
     }
 
     private static void solvePuzzle(WordSearch puzzle, List<Word> words) {
-        for (Word word : words) {
-            findWord(puzzle, word);
-        }
+        words.forEach(word -> findWord(puzzle, word));
     }
 
     private static void findWord(WordSearch puzzle, Word word) {
