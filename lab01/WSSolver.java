@@ -65,6 +65,18 @@ public class WSSolver {
         reader.close();
     }
 
+    /**
+     * <b> Check if all lines are valid</b>
+     *
+     * <p>
+     *     The requirements of Word Search is to have all letters in UpperCase and be a square (40x40 max).
+     *     If there is numbers return false.
+     * </p>
+     * @param line
+     * @param size
+     * @param lnCount
+     * @return Word Search is valid or not
+     */
     private static boolean isLineValid(String line, int size, int lnCount) {
         if (lnCount > size || size != line.length()) {
             System.out.println("The puzzle is inconsistent.");
