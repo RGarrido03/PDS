@@ -19,13 +19,13 @@ public class WordSearch {
      * @param size Desired size
      */
     public WordSearch(int size) {
-        char[][] puzzle = new char[size][size];
+        this.puzzle = new char[size][size];
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                puzzle[i][j] = '.';
+                this.setChar(i, j, '.');
             }
         }
-        this.puzzle = puzzle;
     }
 
     public int getSize() {
@@ -121,7 +121,7 @@ public class WordSearch {
             return;
         }
 
-        puzzle[row][col] = Character.toUpperCase(word.charAt(0));
+        this.setChar(row, col, Character.toUpperCase(word.charAt(0)));
 
         int nextRow = getNextRow(row, direction);
         int nextCol = getNextCol(col, direction);
