@@ -18,7 +18,7 @@ public class WSGenerator {
         }
 
         String input = args[1];
-        String output = args.length == 6 ? args[5] : "wordlist_result.txt";
+        String output = args.length == 6 ? args[5] : null;
         int size = Integer.parseInt(args[3]);
 
         try {
@@ -33,13 +33,19 @@ public class WSGenerator {
             System.exit(1);
         }
 
-        try (PrintWriter writer = new PrintWriter(output)) {
-            WordSearch wordSearch = createWS(size);
-            Word.printListOfWords(words, writer);
-            wordSearch.printPuzzle(writer);
-        } catch (FileNotFoundException e) {
-            System.err.println("File " + output + " isn't found or cannot be created.");
+        WordSearch wordSearch = createWS(size);
+        if (output != null) {
+            try (PrintWriter writer = new PrintWriter(output)) {
+                Word.printListOfWords(words, writer);
+                wordSearch.printPuzzle(writer);
+            } catch (FileNotFoundException e) {
+                System.err.println("File " + output + " isn't found or cannot be created.");
+                System.exit(1);
+            }
+            return;
         }
+        Word.printListOfWords(words);
+        wordSearch.printPuzzle();
     }
 
     private static WordSearch createWS(int size) {
