@@ -41,7 +41,7 @@ public class Word {
      */
     public static void printListOfWords(List<Word> words, PrintWriter out) {
         for (Word word : words) {
-            out.println(word.toString());
+            if (out != null) out.println(word.toString());
             System.out.println(word);
         }
     }
