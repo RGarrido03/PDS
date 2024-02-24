@@ -43,7 +43,6 @@ public class WSSolver {
                 }
 
                 puzzle[lnCount - 1] = line.toCharArray();
-
             } else {
                 String[] tempWords = line.split("[ ,;]");
                 words.addAll(Arrays.stream(tempWords).map(Word::new).toList());
@@ -59,7 +58,9 @@ public class WSSolver {
             solved.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
         }
 
+        Word.printListOfWords(words, pw);
         solved.printPuzzle(pw);
+
         pw.close();
         reader.close();
     }
@@ -113,9 +114,6 @@ public class WSSolver {
                 word.setRow(coordinate[0]);
                 word.setCol(coordinate[1]);
                 word.setDirection(resultDirection);
-
-                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(), ",",
-                                  word.getCol(), Utils.capitalizeString(word.getDirection().toString()));
                 break;
             }
         }
