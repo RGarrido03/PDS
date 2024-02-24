@@ -51,10 +51,7 @@ public class WSSolver {
 
         }
 
-        List<String> wordStrList = words.stream().map(Word::getWord).toList();
-
         WordSearch original = new WordSearch(puzzle);
-        System.out.println(wordStrList);
         solvePuzzle(original, words);
 
         WordSearch wordSearch = new WordSearch(size);
