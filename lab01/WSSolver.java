@@ -51,7 +51,7 @@ public class WSSolver {
         }
 
         WordSearch original = new WordSearch(puzzle);
-        solvePuzzle(original, words);
+        words.forEach(original::findWord);
 
         WordSearch solved = new WordSearch(size);
         for (Word word : words) {
@@ -86,70 +86,5 @@ public class WSSolver {
         }
 
         return true;
-    }
-
-    private static void solvePuzzle(WordSearch puzzle, List<Word> words) {
-        words.forEach(word -> findWord(puzzle, word));
-    }
-
-    private static void findWord(WordSearch puzzle, Word word) {
-        char[] letters = word.getWord().toUpperCase().toCharArray();
-
-        List<int[]> positions = new ArrayList<>();
-        for (int row = 0; row < puzzle.getSize(); row++) {
-            String allLettersInLine = new String(puzzle.getLine(row));
-
-            int col = allLettersInLine.indexOf(letters[0]);
-            while (col >= 0) {
-                positions.add(new int[]{row, col});
-                col = allLettersInLine.indexOf(letters[0], col + 1);
-            }
-        }
-
-        for (int[] coordinate : positions) {
-            Direction resultDirection = testCoordinate(puzzle, word.getWord(), coordinate[0], coordinate[1]);
-
-            if (resultDirection != null) {
-                word.setRow(coordinate[0]);
-                word.setCol(coordinate[1]);
-                word.setDirection(resultDirection);
-                break;
-            }
-        }
-    }
-
-    private static Direction testCoordinate(WordSearch puzzle, String word, int row, int col) {
-        char[] letters = word.toUpperCase().toCharArray();
-
-        for (Direction direction : Direction.values()) {
-            if (testNextCoordinate(puzzle, letters, row, col, direction)) {
-                return direction;
-            }
-        }
-        return null;
-    }
-
-    private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int row, int col, Direction direction) {
-        int nextRow = puzzle.getNextRow(row, direction);
-        int nextCol = puzzle.getNextCol(col, direction);
-
-        if (!validCoordinate(puzzle, nextRow, nextCol) || !verifyLetter(puzzle, nextRow, nextCol, letters[1])) {
-            return false;
-        }
-
-        if (letters.length == 2) {
-            return true;
-        }
-
-        return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextRow, nextCol,
-                                  direction);
-    }
-
-    private static boolean validCoordinate(WordSearch puzzle, int row, int col) {
-        return row >= 0 && col >= 0 && row < puzzle.getSize() && col < puzzle.getSize();
-    }
-
-    private static boolean verifyLetter(WordSearch puzzle, int row, int col, char charToVerify) {
-        return puzzle.getChar(row, col) == Character.toUpperCase(charToVerify);
     }
 }
