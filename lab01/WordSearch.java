@@ -201,10 +201,7 @@ public class WordSearch {
      * <b>Get a position for a word</b>.
      * <p>
      * This function generates a position and updates the word passed as argument.
-     * <p>
-     * WARNING:
-     * This function doesn't take other words into account yet.
-     * Words will probably overlap between each other!
+     * It works by randomizing positions and directions until it fits in the puzzle.
      *
      * @param word Word that needs a position in the puzzle.
      */
