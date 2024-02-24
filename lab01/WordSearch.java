@@ -1,6 +1,9 @@
 package lab01;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WordSearch {
@@ -241,5 +244,65 @@ public class WordSearch {
                 }
             }
         }
+    }
+
+    public void findWord(Word word) {
+        char[] letters = word.getWord().toUpperCase().toCharArray();
+
+        List<int[]> positions = new ArrayList<>();
+        for (int row = 0; row < this.getSize(); row++) {
+            String allLettersInLine = new String(this.getLine(row));
+
+            int col = allLettersInLine.indexOf(letters[0]);
+            while (col >= 0) {
+                positions.add(new int[]{row, col});
+                col = allLettersInLine.indexOf(letters[0], col + 1);
+            }
+        }
+
+        for (int[] coordinate : positions) {
+            Direction resultDirection = testCoordinate(word.getWord(), coordinate[0], coordinate[1]);
+
+            if (resultDirection != null) {
+                word.setRow(coordinate[0]);
+                word.setCol(coordinate[1]);
+                word.setDirection(resultDirection);
+                break;
+            }
+        }
+    }
+
+    private Direction testCoordinate(String word, int row, int col) {
+        char[] letters = word.toUpperCase().toCharArray();
+
+        for (Direction direction : Direction.values()) {
+            if (testNextCoordinate(letters, row, col, direction)) {
+                return direction;
+            }
+        }
+        return null;
+    }
+
+    private boolean testNextCoordinate(char[] letters, int row, int col, Direction direction) {
+        int nextRow = this.getNextRow(row, direction);
+        int nextCol = this.getNextCol(col, direction);
+
+        if (!validCoordinate(nextRow, nextCol) || !verifyLetter(nextRow, nextCol, letters[1])) {
+            return false;
+        }
+
+        if (letters.length == 2) {
+            return true;
+        }
+
+        return testNextCoordinate(Arrays.copyOfRange(letters, 1, letters.length), nextRow, nextCol, direction);
+    }
+
+    private boolean validCoordinate(int row, int col) {
+        return row >= 0 && col >= 0 && row < this.getSize() && col < this.getSize();
+    }
+
+    private boolean verifyLetter(int row, int col, char charToVerify) {
+        return this.getChar(row, col) == Character.toUpperCase(charToVerify);
     }
 }
