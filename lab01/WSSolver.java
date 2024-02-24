@@ -54,13 +54,12 @@ public class WSSolver {
         WordSearch original = new WordSearch(puzzle);
         solvePuzzle(original, words);
 
-        WordSearch wordSearch = new WordSearch(size);
-
+        WordSearch solved = new WordSearch(size);
         for (Word word : words) {
-            wordSearch.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
+            solved.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
         }
 
-        wordSearch.printPuzzle(pw);
+        solved.printPuzzle(pw);
         pw.close();
         reader.close();
     }
