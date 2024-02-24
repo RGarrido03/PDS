@@ -43,7 +43,6 @@ public class WSSolver {
                 }
 
                 puzzle[lnCount - 1] = line.toCharArray();
-
             } else {
                 String[] tempWords = line.split("[ ,;]");
                 words.addAll(Arrays.stream(tempWords).map(Word::new).toList());
@@ -51,34 +50,20 @@ public class WSSolver {
 
         }
 
-        List<String> wordStrList = words.stream().map(Word::getWord).toList();
-
         WordSearch original = new WordSearch(puzzle);
-        System.out.println(wordStrList);
         solvePuzzle(original, words);
 
-        WordSearch wordSearch = new WordSearch(size);
-
+        WordSearch solved = new WordSearch(size);
         for (Word word : words) {
-            wordSearch.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
+            solved.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
         }
 
-        wordSearch.printPuzzle(pw);
+        Word.printListOfWords(words, pw);
+        solved.printPuzzle(pw);
+
         pw.close();
         reader.close();
     }
-
-    /**
-     * <b>Validate Line</b>
-     *
-     * <p>
-     * Word Search has to be square (40x40 max), the lines must be UpperCase and the words to search LowerCase
-     *
-     * @param line
-     * @param size
-     * @param lnCount
-     * @return line is valid or not
-     */
 
     private static boolean isLineValid(String line, int size, int lnCount) {
         if (lnCount > size || size != line.length()) {
@@ -103,7 +88,6 @@ public class WSSolver {
         return true;
     }
 
-
     private static void solvePuzzle(WordSearch puzzle, List<Word> words) {
         words.forEach(word -> findWord(puzzle, word));
     }
@@ -124,69 +108,49 @@ public class WSSolver {
         }
 
         for (int[] coordinate : positions) {
-            Direction resultDirection = testCoordinate(puzzle, word.getWord(), coordinate);
+            Direction resultDirection = testCoordinate(puzzle, word.getWord(), coordinate[0], coordinate[1]);
 
             if (resultDirection != null) {
                 word.setRow(coordinate[0]);
                 word.setCol(coordinate[1]);
                 word.setDirection(resultDirection);
-
-                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(), ",",
-                                  word.getCol(), Utils.capitalizeString(word.getDirection().toString()));
                 break;
             }
         }
     }
 
-    private static Direction testCoordinate(WordSearch puzzle, String word, int[] coordinate) {
+    private static Direction testCoordinate(WordSearch puzzle, String word, int row, int col) {
         char[] letters = word.toUpperCase().toCharArray();
 
         for (Direction direction : Direction.values()) {
-            if (testNextCoordinate(puzzle, letters, coordinate, direction)) {
+            if (testNextCoordinate(puzzle, letters, row, col, direction)) {
                 return direction;
             }
         }
         return null;
     }
 
-    /** <b> Check all letters adjacent of each letter in word</b>
-     *
-     * @param puzzle
-     * @param letters
-     * @param coord
-     * @param direction
-     * @return if word has two elements return it or recursively find more coordinates
-     */
+    private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int row, int col, Direction direction) {
+        int nextRow = puzzle.getNextRow(row, direction);
+        int nextCol = puzzle.getNextCol(col, direction);
 
-    private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int[] coord, Direction direction) {
-        int[] nextCoordinate = switch (direction) {
-            case up -> new int[]{coord[0] - 1, coord[1]};
-            case down -> new int[]{coord[0] + 1, coord[1]};
-            case left -> new int[]{coord[0], coord[1] - 1};
-            case right -> new int[]{coord[0], coord[1] + 1};
-            case upLeft -> new int[]{coord[0] - 1, coord[1] - 1};
-            case upRight -> new int[]{coord[0] - 1, coord[1] + 1};
-            case downLeft -> new int[]{coord[0] + 1, coord[1] - 1};
-            case downRight -> new int[]{coord[0] + 1, coord[1] + 1};
-        };
-
-        if (validCoordinate(puzzle, nextCoordinate) && verifyLetter(puzzle, nextCoordinate, letters[1])) {
-            if (letters.length == 2) {
-                return true;
-            } else {
-                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate,
-                                          direction);
-            }
-        } else {
+        if (!validCoordinate(puzzle, nextRow, nextCol) || !verifyLetter(puzzle, nextRow, nextCol, letters[1])) {
             return false;
         }
+
+        if (letters.length == 2) {
+            return true;
+        }
+
+        return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextRow, nextCol,
+                                  direction);
     }
 
-    private static boolean validCoordinate(WordSearch puzzle, int[] coordinate) {
-        return coordinate[0] >= 0 && coordinate[1] >= 0 && coordinate[0] < puzzle.getSize() && coordinate[1] < puzzle.getSize();
+    private static boolean validCoordinate(WordSearch puzzle, int row, int col) {
+        return row >= 0 && col >= 0 && row < puzzle.getSize() && col < puzzle.getSize();
     }
 
-    private static boolean verifyLetter(WordSearch puzzle, int[] coordinate, char charToVerify) {
-        return puzzle.getChar(coordinate[0], coordinate[1]) == Character.toUpperCase(charToVerify);
+    private static boolean verifyLetter(WordSearch puzzle, int row, int col, char charToVerify) {
+        return puzzle.getChar(row, col) == Character.toUpperCase(charToVerify);
     }
 }
