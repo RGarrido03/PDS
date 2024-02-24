@@ -136,28 +136,20 @@ public class WSSolver {
         return null;
     }
 
-    private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int[] coord, Direction direction) {
-        int[] nextCoordinate = switch (direction) {
-            case up -> new int[]{coord[0] - 1, coord[1]};
-            case down -> new int[]{coord[0] + 1, coord[1]};
-            case left -> new int[]{coord[0], coord[1] - 1};
-            case right -> new int[]{coord[0], coord[1] + 1};
-            case upLeft -> new int[]{coord[0] - 1, coord[1] - 1};
-            case upRight -> new int[]{coord[0] - 1, coord[1] + 1};
-            case downLeft -> new int[]{coord[0] + 1, coord[1] - 1};
-            case downRight -> new int[]{coord[0] + 1, coord[1] + 1};
-        };
+    private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int row, int col, Direction direction) {
+        int nextRow = puzzle.getNextRow(row, direction);
+        int nextCol = puzzle.getNextCol(col, direction);
 
-        if (validCoordinate(puzzle, nextCoordinate) && verifyLetter(puzzle, nextCoordinate, letters[1])) {
-            if (letters.length == 2) {
-                return true;
-            } else {
-                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate,
-                                          direction);
-            }
-        } else {
+        if (!validCoordinate(puzzle, nextRow, nextCol) || !verifyLetter(puzzle, nextRow, nextCol, letters[1])) {
             return false;
         }
+
+        if (letters.length == 2) {
+            return true;
+        }
+
+        return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextRow, nextCol,
+                                  direction);
     }
 
     private static boolean validCoordinate(WordSearch puzzle, int[] coordinate) {
