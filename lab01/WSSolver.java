@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class SopaDeLetras {
+public class WSSolver {
     private static final int MAX_SIZE = 40;
     static List<Word> words = new ArrayList<>();
 
