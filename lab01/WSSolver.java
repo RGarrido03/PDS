@@ -111,7 +111,7 @@ public class WSSolver {
         }
 
         for (int[] coordinate : positions) {
-            Direction resultDirection = testCoordinate(puzzle, word.getWord(), coordinate);
+            Direction resultDirection = testCoordinate(puzzle, word.getWord(), coordinate[0], coordinate[1]);
 
             if (resultDirection != null) {
                 word.setRow(coordinate[0]);
@@ -125,11 +125,11 @@ public class WSSolver {
         }
     }
 
-    private static Direction testCoordinate(WordSearch puzzle, String word, int[] coordinate) {
+    private static Direction testCoordinate(WordSearch puzzle, String word, int row, int col) {
         char[] letters = word.toUpperCase().toCharArray();
 
         for (Direction direction : Direction.values()) {
-            if (testNextCoordinate(puzzle, letters, coordinate, direction)) {
+            if (testNextCoordinate(puzzle, letters, row, col, direction)) {
                 return direction;
             }
         }
@@ -152,11 +152,11 @@ public class WSSolver {
                                   direction);
     }
 
-    private static boolean validCoordinate(WordSearch puzzle, int[] coordinate) {
-        return coordinate[0] >= 0 && coordinate[1] >= 0 && coordinate[0] < puzzle.getSize() && coordinate[1] < puzzle.getSize();
+    private static boolean validCoordinate(WordSearch puzzle, int row, int col) {
+        return row >= 0 && col >= 0 && row < puzzle.getSize() && col < puzzle.getSize();
     }
 
-    private static boolean verifyLetter(WordSearch puzzle, int[] coordinate, char charToVerify) {
-        return puzzle.getChar(coordinate[0], coordinate[1]) == Character.toUpperCase(charToVerify);
+    private static boolean verifyLetter(WordSearch puzzle, int row, int col, char charToVerify) {
+        return puzzle.getChar(row, col) == Character.toUpperCase(charToVerify);
     }
 }
