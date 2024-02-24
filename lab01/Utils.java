@@ -23,6 +23,10 @@ public class Utils {
         return Direction.values()[x];
     }
 
+    public static char randomChar() {
+        return (char) (RANDOM.nextInt(26) + 'A');
+    }
+
     public static String capitalizeString(String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
     }

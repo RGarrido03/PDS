@@ -36,6 +36,10 @@ public class WordSearch {
         return puzzle[row][col];
     }
 
+    public void setChar(int row, int col, char c) {
+        puzzle[row][col] = c;
+    }
+
     public char[] getLine(int row) {
         return puzzle[row];
     }
@@ -222,5 +226,20 @@ public class WordSearch {
         word.setRow(row);
         word.setCol(col);
         word.setDirection(direction);
+    }
+
+    /**
+     * <b>Fill the puzzle with random letters.</b>
+     * <p>
+     * After the puzzle is created, fill the remaining untouched positions with random letters.
+     */
+    public void fillPuzzle() {
+        for (int row = 0; row < this.getSize(); row++) {
+            for (int col = 0; col < this.getSize(); col++) {
+                if (this.getChar(row, col) == '.') {
+                    this.setChar(row, col, Utils.randomChar());
+                }
+            }
+        }
     }
 }
