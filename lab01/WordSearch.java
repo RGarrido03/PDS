@@ -246,6 +246,14 @@ public class WordSearch {
         }
     }
 
+    /**
+     * <b>Find the word in WordSearch</b>
+     * <p>
+     *     See if coordinates of the next coordinate are negative, which means that is outside of WordSearch borders.
+     *     Uses all the methods below findWord()
+     * </p>
+     * @param word
+     */
     public void findWord(Word word) {
         char[] letters = word.getWord().toUpperCase().toCharArray();
 
@@ -282,6 +290,7 @@ public class WordSearch {
         }
         return null;
     }
+
 
     private boolean testNextCoordinate(char[] letters, int row, int col, Direction direction) {
         int nextRow = this.getNextRow(row, direction);
