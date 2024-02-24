@@ -111,44 +111,29 @@ public class SopaDeLetras {
         }
 
         for (int[] coordinate : positions) {
-            String result = testCoordinate(puzzle, word.getWord(), coordinate);
+            Direction resultDirection = testCoordinate(puzzle, word.getWord(), coordinate);
 
-            if (result != null) {
-
+            if (resultDirection != null) {
                 word.setRow(coordinate[0]);
                 word.setCol(coordinate[1]);
-                word.setDirection(Direction.valueOf(result));
+                word.setDirection(resultDirection);
 
                 System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(), ",",
                                   word.getCol(), Utils.capitalizeString(word.getDirection().toString()));
                 break;
             }
         }
-
-
     }
 
-    private static String testCoordinate(WordSearch puzzle, String word, int[] coordinate) {
+    private static Direction testCoordinate(WordSearch puzzle, String word, int[] coordinate) {
         char[] letters = word.toUpperCase().toCharArray();
-        if (testNextCoordinate(puzzle, letters, coordinate, Direction.up)) {
-            return "up";
-        } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.down)) {
-            return "down";
-        } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.left)) {
-            return "left";
-        } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.right)) {
-            return "right";
-        } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.upLeft)) {
-            return "upLeft";
-        } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.upRight)) {
-            return "upRight";
-        } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downLeft)) {
-            return "downLeft";
-        } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downRight)) {
-            return "downRight";
-        } else {
-            return null;
+
+        for (Direction direction : Direction.values()) {
+            if (testNextCoordinate(puzzle, letters, coordinate, direction)) {
+                return direction;
+            }
         }
+        return null;
     }
 
     private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int[] coord, Direction direction) {
