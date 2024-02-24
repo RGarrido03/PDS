@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.*;
 
 public class SopaDeLetras {
     private static final int MAX_SIZE = 40;
@@ -63,8 +60,8 @@ public class SopaDeLetras {
 
         WordSearch wordSearch = new WordSearch(size);
 
-        for(Word word: words){
-            wordSearch.addWord(word.getWord(), word.getRow(),word.getCol(), word.getDirection());
+        for (Word word : words) {
+            wordSearch.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
         }
 
         wordSearch.printPuzzle(pw);
@@ -155,13 +152,14 @@ public class SopaDeLetras {
         for (int[] coordinate : positions) {
             String result = testCoordinate(puzzle, word.getWord(), coordinate);
 
-            if(result != null){
+            if (result != null) {
 
                 word.setRow(coordinate[0]);
                 word.setCol(coordinate[1]);
                 word.setDirection(Direction.valueOf(result));
 
-                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(),",", word.getCol(), Utils.capitalizeString(word.getDirection().toString()));
+                System.out.printf("%-15s%-10d%d%s%-10d%-15s\n", word.getWord(), word.getLength(), word.getRow(), ",",
+                                  word.getCol(), Utils.capitalizeString(word.getDirection().toString()));
                 break;
             }
         }
@@ -187,8 +185,7 @@ public class SopaDeLetras {
             return "downLeft";
         } else if (testNextCoordinate(puzzle, letters, coordinate, Direction.downRight)) {
             return "downRight";
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -223,11 +220,11 @@ public class SopaDeLetras {
         }
 
         if (validCoordinate(puzzle, nextCoordinate) && verifyLetter(puzzle, nextCoordinate, letters[1])) {
-            if(letters.length==2) {
+            if (letters.length == 2) {
                 return true;
-            }
-            else {
-                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate, direction);
+            } else {
+                return testNextCoordinate(puzzle, Arrays.copyOfRange(letters, 1, letters.length), nextCoordinate,
+                                          direction);
             }
         } else {
             return false;
