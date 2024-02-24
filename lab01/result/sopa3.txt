@@ -1,0 +1,20 @@
+lorem          5         7,10      UpLeft         
+ipsum          5         0,6       Right          
+dolor          5         7,3       DownRight      
+sit            3         7,2       Up             
+amet           4         6,7       Down           
+consectetur    11        0,0       Down           
+adipiscing     10        2,11      Left           
+elit           4         5,6       Down           
+C . . . . . I P S U M . 
+O . . . . . . . . . . . 
+N . G N I C S I P I D A 
+S . . . . . M . . . . . 
+E . . . . . . E . . . . 
+C . T . . . E . R . . . 
+T . I . . . L A . O . . 
+E . S D . . I M . . L . 
+T . . . O . T E . . . . 
+U . . . . L . T . . . . 
+R . . . . . O . . . . . 
+. . . . . . . R . . . . 

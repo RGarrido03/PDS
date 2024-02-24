@@ -1,0 +1,19 @@
+ruben          5         5,3       Down
+garrido        7         1,0       Down
+bruno          5         7,7       UpLeft
+lopes          5         8,9       Left
+pds            3         7,10      Down
+pratica        7         1,2       DownRight
+lei            3         11,3      UpRight
+. . . . . . . . . . . .
+G . P . . . . . . . . .
+A . . R . . . . . . . .
+R . . O A . . . . . . .
+R . . . N T . . . . . .
+I . . R . U I . . . . .
+D . . U . . R C . . . .
+O . . B . . . B A . P .
+. . . E . S E P O L D .
+. . . N . I . . . . S .
+. . . . E . . . . . . .
+. . . L . . . . . . . .
