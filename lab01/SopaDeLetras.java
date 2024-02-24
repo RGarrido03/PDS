@@ -54,9 +54,10 @@ public class SopaDeLetras {
 
         List<String> wordStrList = words.stream().map(Word::getWord).toList();
 
+        WordSearch original = new WordSearch(puzzle);
         printPuzzle(puzzle, wordStrList);
         System.out.println(wordStrList);
-        solvePuzzle(puzzle, words);
+        solvePuzzle(original, words);
 
         WordSearch wordSearch = new WordSearch(size);
 
@@ -128,17 +129,17 @@ public class SopaDeLetras {
 //        }
     }
 
-    private static void solvePuzzle(char[][] puzzle, List<Word> words) {
+    private static void solvePuzzle(WordSearch puzzle, List<Word> words) {
         for (Word word : words) {
             findWord(puzzle, word);
         }
     }
 
-    private static void findWord(char[][] puzzle, Word word) {
+    private static void findWord(WordSearch puzzle, Word word) {
         char[] letters = word.getWord().toUpperCase().toCharArray();
         List<int[]> positions = new ArrayList<>();
-        for (int i = 0; i < puzzle.length; i++) {
-            String allLettersInLine = new String(puzzle[i]);
+        for (int i = 0; i < puzzle.getSize(); i++) {
+            String allLettersInLine = new String(puzzle.getLine(i));
 
             int index = allLettersInLine.indexOf(letters[0]);
             while (index >= 0) {
@@ -167,7 +168,7 @@ public class SopaDeLetras {
 
     }
 
-    private static String testCoordinate(char[][] puzzle, String word, int[] coordinate) {
+    private static String testCoordinate(WordSearch puzzle, String word, int[] coordinate) {
         char[] letters = word.toUpperCase().toCharArray();
         if (testNextCoordinate(puzzle, letters, coordinate, Direction.up)) {
             return "up";
@@ -190,34 +191,17 @@ public class SopaDeLetras {
         }
     }
 
-    private static boolean testNextCoordinate(char[][] puzzle, char[] letters, int[] coord, Direction direction) {
-        int[] nextCoordinate = null;
-        switch (direction) {
-            case up:
-                nextCoordinate = new int[]{coord[0] - 1, coord[1]};
-                break;
-            case down:
-                nextCoordinate = new int[]{coord[0] + 1, coord[1]};
-                break;
-            case left:
-                nextCoordinate = new int[]{coord[0], coord[1] - 1};
-                break;
-            case right:
-                nextCoordinate = new int[]{coord[0], coord[1] + 1};
-                break;
-            case upLeft:
-                nextCoordinate = new int[]{coord[0] - 1, coord[1] - 1};
-                break;
-            case upRight:
-                nextCoordinate = new int[]{coord[0] - 1, coord[1] + 1};
-                break;
-            case downLeft:
-                nextCoordinate = new int[]{coord[0] + 1, coord[1] - 1};
-                break;
-            case downRight:
-                nextCoordinate = new int[]{coord[0] + 1, coord[1] + 1};
-                break;
-        }
+    private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int[] coord, Direction direction) {
+        int[] nextCoordinate = switch (direction) {
+            case up -> new int[]{coord[0] - 1, coord[1]};
+            case down -> new int[]{coord[0] + 1, coord[1]};
+            case left -> new int[]{coord[0], coord[1] - 1};
+            case right -> new int[]{coord[0], coord[1] + 1};
+            case upLeft -> new int[]{coord[0] - 1, coord[1] - 1};
+            case upRight -> new int[]{coord[0] - 1, coord[1] + 1};
+            case downLeft -> new int[]{coord[0] + 1, coord[1] - 1};
+            case downRight -> new int[]{coord[0] + 1, coord[1] + 1};
+        };
 
         if (validCoordinate(puzzle, nextCoordinate) && verifyLetter(puzzle, nextCoordinate, letters[1])) {
             if (letters.length == 2) {
@@ -231,11 +215,11 @@ public class SopaDeLetras {
         }
     }
 
-    private static boolean validCoordinate(char[][] puzzle, int[] coordinate) {
-        return coordinate[0] >= 0 && coordinate[1] >= 0 && coordinate[0] < puzzle.length && coordinate[1] < puzzle[0].length;
+    private static boolean validCoordinate(WordSearch puzzle, int[] coordinate) {
+        return coordinate[0] >= 0 && coordinate[1] >= 0 && coordinate[0] < puzzle.getSize() && coordinate[1] < puzzle.getSize();
     }
 
-    private static boolean verifyLetter(char[][] puzzle, int[] coordinate, char charToVerify) {
-        return puzzle[coordinate[0]][coordinate[1]] == Character.toUpperCase(charToVerify);
+    private static boolean verifyLetter(WordSearch puzzle, int[] coordinate, char charToVerify) {
+        return puzzle.getChar(coordinate[0], coordinate[1]) == Character.toUpperCase(charToVerify);
     }
 }

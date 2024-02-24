@@ -36,6 +36,10 @@ public class WordSearch {
         return puzzle[row][col];
     }
 
+    public char[] getLine(int row) {
+        return puzzle[row];
+    }
+
     /**
      * <b>Print the puzzle</b> to <code>System.out</code>.
      */
