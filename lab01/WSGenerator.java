@@ -36,16 +36,18 @@ public class WSGenerator {
         WordSearch wordSearch = createWS(size);
         if (output != null) {
             try (PrintWriter writer = new PrintWriter(output)) {
-                Word.printListOfWords(words, writer);
                 wordSearch.printPuzzle(writer);
+                List<String> wordsList = words.stream().map(Word::getWord).toList();
+                System.out.println(wordsList);
+                writer.println(wordsList);
             } catch (FileNotFoundException e) {
                 System.err.println("File " + output + " isn't found or cannot be created.");
                 System.exit(1);
             }
             return;
         }
-        Word.printListOfWords(words);
         wordSearch.printPuzzle();
+        System.out.println(words.stream().map(Word::getWord).toList());
     }
 
     private static WordSearch createWS(int size) {
