@@ -94,16 +94,15 @@ public class WSSolver {
 
     private static void findWord(WordSearch puzzle, Word word) {
         char[] letters = word.getWord().toUpperCase().toCharArray();
+
         List<int[]> positions = new ArrayList<>();
-        for (int i = 0; i < puzzle.getSize(); i++) {
-            String allLettersInLine = new String(puzzle.getLine(i));
+        for (int row = 0; row < puzzle.getSize(); row++) {
+            String allLettersInLine = new String(puzzle.getLine(row));
 
-            int index = allLettersInLine.indexOf(letters[0]);
-            while (index >= 0) {
-                int[] coordinate = new int[]{i, index};
-
-                positions.add(coordinate);
-                index = allLettersInLine.indexOf(letters[0], index + 1);
+            int col = allLettersInLine.indexOf(letters[0]);
+            while (col >= 0) {
+                positions.add(new int[]{row, col});
+                col = allLettersInLine.indexOf(letters[0], col + 1);
             }
         }
 
