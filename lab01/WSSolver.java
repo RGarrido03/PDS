@@ -68,6 +68,18 @@ public class WSSolver {
         reader.close();
     }
 
+    /**
+     * <b>Validate Line</b>
+     *
+     * <p>
+     * Word Search has to be square (40x40 max), the lines must be UpperCase and the words to search LowerCase
+     *
+     * @param line
+     * @param size
+     * @param lnCount
+     * @return line is valid or not
+     */
+
     private static boolean isLineValid(String line, int size, int lnCount) {
         if (lnCount > size || size != line.length()) {
             System.out.println("The puzzle is inconsistent.");
@@ -90,6 +102,7 @@ public class WSSolver {
 
         return true;
     }
+
 
     private static void solvePuzzle(WordSearch puzzle, List<Word> words) {
         words.forEach(word -> findWord(puzzle, word));
@@ -135,6 +148,15 @@ public class WSSolver {
         }
         return null;
     }
+
+    /** <b> Check all letters adjacent of each letter in word</b>
+     *
+     * @param puzzle
+     * @param letters
+     * @param coord
+     * @param direction
+     * @return if word has two elements return it or recursively find more coordinates
+     */
 
     private static boolean testNextCoordinate(WordSearch puzzle, char[] letters, int[] coord, Direction direction) {
         int[] nextCoordinate = switch (direction) {
