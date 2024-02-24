@@ -24,7 +24,6 @@ public class SopaDeLetras {
             System.out.println("ERROR: Missing one argument with file of word solver");
             System.exit(1);
         }*/
-        System.out.println("Begin");
 
         Scanner reader = new Scanner(new FileReader("sopaDeLetras.txt"));
 
@@ -55,7 +54,6 @@ public class SopaDeLetras {
         List<String> wordStrList = words.stream().map(Word::getWord).toList();
 
         WordSearch original = new WordSearch(puzzle);
-        printPuzzle(puzzle, wordStrList);
         System.out.println(wordStrList);
         solvePuzzle(original, words);
 
@@ -101,32 +99,6 @@ public class SopaDeLetras {
         }
 
         return true;
-    }
-
-    private static void printPuzzle(char[][] puzzle, List<String> words) {
-        for (char[] line : puzzle) {
-            System.out.println(line);
-        }
-
-//        for (int i = 0; i < puzzle.length; i++) {
-//            for (int j = 0; j < puzzle[0].length; j++) {
-//
-//                int row = i;
-//                int col = j;
-//
-//                //Check if word contains in puzzle
-//                boolean characterMatch = words.stream().anyMatch(word -> word.contains(Character.toString(puzzle[row][col]).toLowerCase()));
-//
-//
-//                if (characterMatch) {
-//                    System.out.print(puzzle[row][col]);
-//                } else {
-//                    System.out.print(".");
-//                }
-//
-//            }
-//            System.out.println();
-//        }
     }
 
     private static void solvePuzzle(WordSearch puzzle, List<Word> words) {
