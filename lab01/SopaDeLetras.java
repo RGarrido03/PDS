@@ -20,12 +20,12 @@ public class SopaDeLetras {
 
         PrintWriter pw = new PrintWriter("out1");
 
-        /*if (args.length < 1){
-            System.out.println("ERROR: Missing one argument with file of word solver");
+        if (args.length == 0) {
+            System.err.println("ERROR: Missing one argument with file of word solver");
             System.exit(1);
-        }*/
+        }
 
-        Scanner reader = new Scanner(new FileReader("sopaDeLetras.txt"));
+        Scanner reader = new Scanner(new FileReader(args[0]));
 
         while (reader.hasNextLine()) {
             line = reader.nextLine().trim();
