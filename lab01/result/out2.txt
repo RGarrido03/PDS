@@ -1,0 +1,19 @@
+ruben          5         4,7       Left
+garrido        7         8,2       Right
+bruno          5         5,1       Down
+lopes          5         3,9       Down
+pds            3         1,2       Left
+pratica        7         11,1      Right
+lei            3         2,10      Left
+. . . . . . . . . . . .
+S D P . . . . . . . . .
+. . . . . . . . I E L .
+. . . . . . . . . L . .
+. . . N E B U R . O . .
+. B . . . . . . . P . .
+. R . . . . . . . E . .
+. U . . . . . . . S . .
+. N G A R R I D O . . .
+. O . . . . . . . . . .
+. . . . . . . . . . . .
+. P R A T I C A . . . .
