@@ -1,19 +1,13 @@
-ruben          5         5,3       Down
-garrido        7         1,0       Down
-bruno          5         7,7       UpLeft
-lopes          5         8,9       Left
-pds            3         7,10      Down
-pratica        7         1,2       DownRight
-lei            3         11,3      UpRight
-. . . . . . . . . . . .
-G . P . . . . . . . . .
-A . . R . . . . . . . .
-R . . O A . . . . . . .
-R . . . N T . . . . . .
-I . . R . U I . . . . .
-D . . U . . R C . . . .
-O . . B . . . B A . P .
-. . . E . S E P O L D .
-. . . N . I . . . . S .
-. . . . E . . . . . . .
-. . . L . . . . . . . .
+G M L I H R I K D V Y F 
+S D P C N S U B D G Z B 
+W U Q N U D P E I E L I 
+Q F Q Q L O X T W L O M 
+C T G N E B U R S O D P 
+F B E N R S M I R P G V 
+X R A P I N W M A E A I 
+P U S I Q X L G Y S V Z 
+U N G A R R I D O O I N 
+N O L V M L W V U I L I 
+G F J T P A N S F J X S 
+S P R A T I C A O S P G 
+[ruben, garrido, bruno, lopes, pds, pratica, lei]
