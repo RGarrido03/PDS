@@ -84,20 +84,21 @@ public class WSSolver {
      */
     private static boolean isLineValid(String line, int size, int lnCount) {
         if (lnCount > size || size != line.length()) {
-            System.out.println("The puzzle is inconsistent.");
+            System.err.println("The puzzle is inconsistent.");
             return false;
         }
         if (size > MAX_SIZE) {
-            System.out.println("Puzzle size is too big (>" + MAX_SIZE + ").");
+            System.err.println("Puzzle size is too big (>" + MAX_SIZE + ").");
             return false;
         }
         if (!Utils.isLineUpperCase(line)) {
-            System.out.println("The puzzle has lower case characters.");
+            System.err.println("The puzzle has lower case characters.");
             return false;
         }
 
         for (char c : line.toCharArray()) {
-            if (Character.isDigit(c)) {
+            if (!Character.isAlphabetic(c)) {
+                System.err.println("The puzzle has unsupported characters.");
                 return false;
             }
         }
