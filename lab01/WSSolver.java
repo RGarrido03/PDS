@@ -66,9 +66,7 @@ public class WSSolver {
         }
 
         WordSearch solved = new WordSearch(size);
-        for (Word word : words) {
-            solved.addWord(word);
-        }
+        words.forEach(solved::addWord);
 
         words.printWordList(pw, true);
         solved.printPuzzle(pw, true);
