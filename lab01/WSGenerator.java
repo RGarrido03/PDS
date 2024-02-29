@@ -54,7 +54,14 @@ public class WSGenerator {
                 System.err.println("Word " + word + " is too long.");
                 System.exit(1);
             }
-            puzzle.generatePosition(word);
+
+            try {
+                puzzle.generatePosition(word);
+            } catch (IllegalArgumentException e) {
+                System.err.println(e.getMessage());
+                System.exit(1);
+            }
+
             puzzle.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
         }
 

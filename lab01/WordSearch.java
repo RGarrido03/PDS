@@ -214,12 +214,19 @@ public class WordSearch {
      * It works by randomizing positions and directions until it fits in the puzzle.
      *
      * @param word Word that needs a position in the puzzle.
+     * @throws IllegalArgumentException When more than twenty positions are generated and none of them fit in the puzzle.
      */
-    public void generatePosition(Word word) {
-        int row, col;
+    public void generatePosition(Word word) throws IllegalArgumentException {
+        int row, col, count = 0;
         Direction direction;
 
         do {
+            if (++count > 20) {
+                throw new IllegalArgumentException(
+                        word.getWord() + " cannot be put in the puzzle. " +
+                                "This can happen due to having too many words for a small grid.");
+            }
+
             direction = Utils.randomDirection();
 
             int[] rowBoundaries = this.getRowBoundaries(direction, word.getLength());
