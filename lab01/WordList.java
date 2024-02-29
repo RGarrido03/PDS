@@ -14,7 +14,16 @@ public class WordList implements Iterable<Word> {
     }
 
     public void addAll(List<Word> words) {
-        this.words.addAll(words);
+        for (Word word : words) {
+            if (this.contains(word)) {
+                throw new IllegalArgumentException("Word '" + word.getWord() + "' is a duplicate word.");
+            }
+            this.words.add(word);
+        }
+    }
+
+    public boolean contains(Word word) {
+        return this.words.contains(word);
     }
 
     /**

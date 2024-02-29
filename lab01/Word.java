@@ -1,5 +1,7 @@
 package lab01;
 
+import java.util.Objects;
+
 public class Word {
     private final String word;
     private int row;
@@ -54,5 +56,18 @@ public class Word {
         return String.format("%-15s%-10d%-10s%-15s", this.getWord(), this.getLength(),
                              this.getRow() + "," + this.getCol(),
                              Utils.capitalizeString(this.getDirection().toString()));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Word word1 = (Word) o;
+        return Objects.equals(getWord(), word1.getWord());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getWord());
     }
 }

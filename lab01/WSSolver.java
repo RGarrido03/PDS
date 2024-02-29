@@ -43,7 +43,13 @@ public class WSSolver {
                 puzzle[lnCount - 1] = line.toCharArray();
             } else {
                 String[] tempWords = line.split("[ ,;]");
-                words.addAll(Arrays.stream(tempWords).map(Word::new).toList());
+
+                try {
+                    words.addAll(Arrays.stream(tempWords).map(Word::new).toList());
+                } catch (IllegalArgumentException e) {
+                    System.err.println(e.getMessage());
+                    System.exit(1);
+                }
             }
 
         }
