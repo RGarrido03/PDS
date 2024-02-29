@@ -278,8 +278,9 @@ public class WordSearch {
             }
         }
 
+        Direction resultDirection = null;
         for (int[] coordinate : positions) {
-            Direction resultDirection = testCoordinate(word.getWord(), coordinate[0], coordinate[1]);
+            resultDirection = testCoordinate(word.getWord(), coordinate[0], coordinate[1]);
 
             if (resultDirection != null) {
                 word.setRow(coordinate[0]);
@@ -287,6 +288,10 @@ public class WordSearch {
                 word.setDirection(resultDirection);
                 break;
             }
+        }
+
+        if (resultDirection == null) {
+            throw new IllegalArgumentException("Word '" + word.getWord() + "' was not found in the puzzle.");
         }
     }
 

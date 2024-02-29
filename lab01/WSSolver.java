@@ -58,7 +58,12 @@ public class WSSolver {
         }
 
         WordSearch original = new WordSearch(puzzle);
-        words.forEach(original::findWord);
+        try {
+            words.forEach(original::findWord);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
 
         WordSearch solved = new WordSearch(size);
         for (Word word : words) {
