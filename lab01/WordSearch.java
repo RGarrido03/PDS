@@ -128,7 +128,7 @@ public class WordSearch {
 
         String subWord = word.getWord().substring(1);
         int nextRow = getNextRow(word.getRow(), word.getDirection());
-        int nextCol = getNextCol(word.getRow(), word.getDirection());
+        int nextCol = getNextCol(word.getCol(), word.getDirection());
 
         Word next = new Word(subWord, nextRow, nextCol, word.getDirection());
         addWord(next);
