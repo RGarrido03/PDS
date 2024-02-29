@@ -262,7 +262,7 @@ public class WordSearch {
      * Uses all the methods below findWord()
      * </p>
      *
-     * @param word
+     * @param word Word to find.
      */
     public void findWord(Word word) {
         char[] letters = word.getWord().toUpperCase().toCharArray();
