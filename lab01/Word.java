@@ -1,8 +1,5 @@
 package lab01;
 
-import java.io.PrintWriter;
-import java.util.List;
-
 public class Word {
     private final String word;
     private int row;
@@ -18,32 +15,6 @@ public class Word {
         this.row = row;
         this.col = col;
         this.direction = direction;
-    }
-
-    /**
-     * <b>Print the word list</b> to <code>System.out</code>.
-     * <p>
-     * Output: Word | Length | Position | Direction
-     *
-     * @param words List of words.
-     */
-    public static void printListOfWords(List<Word> words) {
-        printListOfWords(words, null);
-    }
-
-    /**
-     * <b>Print the word list</b> to <code>System.out</code> and a file.
-     * <p>
-     * Output: Word | Length | Position | Direction
-     *
-     * @param words List of words.
-     * @param out   File to write.
-     */
-    public static void printListOfWords(List<Word> words, PrintWriter out) {
-        for (Word word : words) {
-            if (out != null) out.println(word.toString());
-            System.out.println(word);
-        }
     }
 
     public String getWord() {

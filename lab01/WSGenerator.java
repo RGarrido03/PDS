@@ -3,13 +3,11 @@ package lab01;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class WSGenerator {
-    private static final List<Word> words = new ArrayList<>();
+    private static final WordList words = new WordList();
 
     public static void main(String[] args) {
         if (!areArgsValid(args)) {
@@ -26,7 +24,7 @@ public class WSGenerator {
 
             while (scanner.hasNextLine()) {
                 Arrays.stream(scanner.nextLine().trim().split("[ ,;]"))
-                      .forEach(word -> words.add(new Word(word)));
+                      .forEach(word -> words.addWord(new Word(word)));
             }
         } catch (FileNotFoundException e) {
             System.err.println("File not found.");
@@ -37,9 +35,7 @@ public class WSGenerator {
         if (output != null) {
             try (PrintWriter writer = new PrintWriter(output)) {
                 wordSearch.printPuzzle(writer, false);
-                List<String> wordsList = words.stream().map(Word::getWord).toList();
-                System.out.println(wordsList);
-                writer.println(wordsList);
+                words.printWordList(writer, false);
             } catch (FileNotFoundException e) {
                 System.err.println("File " + output + " isn't found or cannot be created.");
                 System.exit(1);
@@ -47,7 +43,7 @@ public class WSGenerator {
             return;
         }
         wordSearch.printPuzzle(false);
-        System.out.println(words.stream().map(Word::getWord).toList());
+        words.printWordList(false);
     }
 
     private static WordSearch createWS(int size) {

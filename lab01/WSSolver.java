@@ -3,14 +3,12 @@ package lab01;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class WSSolver {
     private static final int MAX_SIZE = 40;
-    static List<Word> words = new ArrayList<>();
+    static WordList words = new WordList();
 
     public static void main(String[] args) throws FileNotFoundException {
         char[][] puzzle = new char[0][0];
@@ -58,7 +56,7 @@ public class WSSolver {
             solved.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
         }
 
-        Word.printListOfWords(words, pw);
+        words.printWordList(pw, true);
         solved.printPuzzle(pw, true);
 
         pw.close();
