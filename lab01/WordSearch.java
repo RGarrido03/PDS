@@ -49,20 +49,23 @@ public class WordSearch {
 
     /**
      * <b>Print the puzzle</b> to <code>System.out</code>.
+     *
+     * @param includeSpaces Whether the puzzle should be printed with spaces in between or not.
      */
-    public void printPuzzle() {
-        printPuzzle(null);
+    public void printPuzzle(boolean includeSpaces) {
+        printPuzzle(null, includeSpaces);
     }
 
     /**
      * <b>Print the puzzle</b> to both <code>System.out</code> and a file.
      *
-     * @param out File to write.
+     * @param out           File to write.
+     * @param includeSpaces Whether the puzzle should be printed with spaces in between or not.
      */
-    public void printPuzzle(PrintWriter out) {
+    public void printPuzzle(PrintWriter out, boolean includeSpaces) {
         for (int i = 0; i < this.getSize(); i++) {
             for (int j = 0; j < this.getSize(); j++) {
-                String print = this.getChar(i, j) + " ";
+                String print = this.getChar(i, j) + (includeSpaces ? " " : "");
                 System.out.print(print);
                 if (out != null) out.print(print);
             }
@@ -249,9 +252,10 @@ public class WordSearch {
     /**
      * <b>Find the word in WordSearch</b>
      * <p>
-     *     See if coordinates of the next coordinate are negative, which means that is outside of WordSearch borders.
-     *     Uses all the methods below findWord()
+     * See if coordinates of the next coordinate are negative, which means that is outside of WordSearch borders.
+     * Uses all the methods below findWord()
      * </p>
+     *
      * @param word
      */
     public void findWord(Word word) {

@@ -36,7 +36,7 @@ public class WSGenerator {
         WordSearch wordSearch = createWS(size);
         if (output != null) {
             try (PrintWriter writer = new PrintWriter(output)) {
-                wordSearch.printPuzzle(writer);
+                wordSearch.printPuzzle(writer, false);
                 List<String> wordsList = words.stream().map(Word::getWord).toList();
                 System.out.println(wordsList);
                 writer.println(wordsList);
@@ -46,7 +46,7 @@ public class WSGenerator {
             }
             return;
         }
-        wordSearch.printPuzzle();
+        wordSearch.printPuzzle(false);
         System.out.println(words.stream().map(Word::getWord).toList());
     }
 

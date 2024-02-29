@@ -59,7 +59,7 @@ public class WSSolver {
         }
 
         Word.printListOfWords(words, pw);
-        solved.printPuzzle(pw);
+        solved.printPuzzle(pw, true);
 
         pw.close();
         reader.close();
