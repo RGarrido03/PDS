@@ -2,7 +2,6 @@ package lab01;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -15,8 +14,6 @@ public class WSSolver {
         String line;
         int lnCount = 0;
         int size = 0;
-
-        PrintWriter pw = new PrintWriter("out1");
 
         if (args.length == 0) {
             System.err.println("ERROR: Missing one argument with file of word solver");
@@ -68,10 +65,9 @@ public class WSSolver {
         WordSearch solved = new WordSearch(size);
         words.forEach(solved::addWord);
 
-        words.printWordList(pw, true);
-        solved.printPuzzle(pw, true);
+        words.printWordList(true);
+        solved.printPuzzle(true);
 
-        pw.close();
         reader.close();
     }
 
