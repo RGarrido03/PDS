@@ -27,7 +27,10 @@ public class WSSolver {
 
         while (reader.hasNextLine()) {
             line = reader.nextLine().trim();
-            if (line.isEmpty()) continue;
+            if (line.isEmpty()) {
+                System.err.println("There are empty lines in the file.");
+                System.exit(1);
+            }
 
             // Puzzle
             if (Character.isUpperCase(line.charAt(0))) {
