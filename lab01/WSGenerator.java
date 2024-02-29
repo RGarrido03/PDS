@@ -62,7 +62,7 @@ public class WSGenerator {
                 System.exit(1);
             }
 
-            puzzle.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
+            puzzle.addWord(word);
         }
 
         puzzle.fillPuzzle();

@@ -117,22 +117,21 @@ public class WordSearch {
      * <p>
      * This function takes a word and recursively adds a word, letter by letter, to the puzzle.
      *
-     * @param word      Word to update.
-     * @param row       Row to update (first letter index if first called)
-     * @param col       Column to update (first letter index if first called)
-     * @param direction Word direction
+     * @param word Word to update.
      */
-    public void addWord(String word, int row, int col, Direction direction) {
-        if (word.isEmpty()) {
+    public void addWord(Word word) {
+        if (word.getWord().isEmpty()) {
             return;
         }
 
-        this.setChar(row, col, Character.toUpperCase(word.charAt(0)));
+        this.setChar(word.getRow(), word.getCol(), Character.toUpperCase(word.getWord().charAt(0)));
 
-        int nextRow = getNextRow(row, direction);
-        int nextCol = getNextCol(col, direction);
+        String subWord = word.getWord().substring(1);
+        int nextRow = getNextRow(word.getRow(), word.getDirection());
+        int nextCol = getNextCol(word.getRow(), word.getDirection());
 
-        addWord(word.substring(1), nextRow, nextCol, direction);
+        Word next = new Word(subWord, nextRow, nextCol, word.getDirection());
+        addWord(next);
     }
 
     /**

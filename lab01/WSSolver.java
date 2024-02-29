@@ -62,7 +62,7 @@ public class WSSolver {
 
         WordSearch solved = new WordSearch(size);
         for (Word word : words) {
-            solved.addWord(word.getWord(), word.getRow(), word.getCol(), word.getDirection());
+            solved.addWord(word);
         }
 
         words.printWordList(pw, true);
