@@ -1,19 +1,19 @@
-programming    11        10,1      UpRight
-java           4         4,10      Down
-words          5         11,7      Right
-lines          5         7,9       UpLeft
-civic          5         1,1       Down
-test           4         1,3       Right
-stack          5         11,2      UpRight
-. . . . . . . . . . . G
-. C . T E S T . . . N .
-. I . . . . . . . I . .
-. V . . . S . . M . . .
-. I . . . . E M . . J .
-. C . . . . A N . . A .
-. . . . . R . . I . V .
-. . . . G . K . . L A .
-. . . O . C . . . . . .
-. . R . A . . . . . . .
-. P . T . . . . . . . .
-. . S . . . . W O R D S
+programming    11        0,3       Down
+java           4         8,7       UpRight
+words          5         11,3      Right
+lines          5         4,0       Up
+civic          5         4,7       DownRight
+test           4         1,7       DownLeft
+stack          5         9,6       Up
+S . . P . . . . . . . .
+E . . R . . . T . . . .
+N . . O . . E . . . . .
+I . . G . S . . . . . .
+L . . R T . . C . . . .
+. . . A . . K . I . A .
+. . . M . . C . . V . .
+. . . M . . A . A . I .
+. . . I . . T J . . . C
+. . . N . . S . . . . .
+. . . G . . . . . . . .
+. . . W O R D S . . . .

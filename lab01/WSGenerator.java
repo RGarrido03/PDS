@@ -51,7 +51,7 @@ public class WSGenerator {
 
         for (Word word : words) {
             if (word.getLength() > size) {
-                System.err.println("Word " + word + " is too long.");
+                System.err.println("Word " + word.getWord() + " is too long.");
                 System.exit(1);
             }
 
