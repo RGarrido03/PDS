@@ -1,18 +1,16 @@
-package lab3;
-
-import lab3.JGaloInterface;
+package lab3.ex1;
 
 public class Jogo implements JGaloInterface {
 
-    private char[][] tabuleiro;
     boolean isPlayerX = true;
+    private char[][] tabuleiro;
     private int jogadas;
 
-    public Jogo(){
+    public Jogo() {
         tabuleiro = new char[3][3];
 
-        for (int i = 0; i < tabuleiro.length; i++){
-            for (int j = 0; j < tabuleiro.length; j++){
+        for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro.length; j++) {
                 tabuleiro[i][j] = ' ';
             }
         }
@@ -20,15 +18,16 @@ public class Jogo implements JGaloInterface {
 
     }
 
-    public char getActualPlayer(){
+    public char getActualPlayer() {
 
-       isPlayerX = !isPlayerX;
-       return isPlayerX ? 'O' : 'X';
+        isPlayerX = !isPlayerX;
+        return isPlayerX ? 'O' : 'X';
 
     }
-    public boolean setJogada(int lin, int col){
-        if (tabuleiro[lin-1][col-1] == ' '){
-            tabuleiro[lin-1][col-1] = isPlayerX ? 'O' : 'X';
+
+    public boolean setJogada(int lin, int col) {
+        if (tabuleiro[lin - 1][col - 1] == ' ') {
+            tabuleiro[lin - 1][col - 1] = isPlayerX ? 'O' : 'X';
             jogadas++;
 
             return true;
@@ -36,13 +35,13 @@ public class Jogo implements JGaloInterface {
         return false;
     }
 
-    public char vencedor(){
+    public char vencedor() {
 
         // Check horizontal or vertical lines
-        for (int i = 0; i <= 2; i++){
+        for (int i = 0; i <= 2; i++) {
 
             if (tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2] ||
-                    tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i]){
+                    tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i]) {
                 return tabuleiro[i][i];
             }
         }
@@ -54,18 +53,17 @@ public class Jogo implements JGaloInterface {
         }
 
         return ' ';
-
     }
+
     public boolean isFinished() {
         return vencedor() != ' ' || jogadas == 9;
     }
 
     public char checkResult() {
 
-        if (vencedor() == 'X'){
+        if (vencedor() == 'X') {
             return 'X';
-        }
-        else if (vencedor() == 'O'){
+        } else if (vencedor() == 'O') {
             return 'O';
         }
 
