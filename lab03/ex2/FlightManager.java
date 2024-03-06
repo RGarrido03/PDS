@@ -1,9 +1,12 @@
 package lab3.ex2;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FlightManager {
     private static final Scanner sc = new Scanner(System.in);
+    private static final Map<String, Flight> flights = new HashMap<>();
 
     public static void main(String[] args) {
         System.out.println("Choose an option (H for help): ");
@@ -25,7 +28,14 @@ public class FlightManager {
     }
 
     private static void help() {
-        System.out.println("Help");
+        System.out.println("Available options:");
+        System.out.println("\tH - help");
+        System.out.println("\tI - flight info");
+        System.out.println("\tM - flight bookings");
+        System.out.println("\tF - add flight");
+        System.out.println("\tR - new booking");
+        System.out.println("\tC - cancel booking");
+        System.out.println("\tQ - quit");
     }
 
     private static void flightInfo() {
