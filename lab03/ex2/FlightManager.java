@@ -62,7 +62,21 @@ public class FlightManager {
     }
 
     private static void addFlight() {
-        System.out.println("Add flight");
+        String flightCode = ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
+
+        if (flights.containsKey(flightCode)) {
+            throw new IllegalArgumentException(Error.FLIGHT_ALREADY_EXISTS.toString());
+        }
+
+        String touristicLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
+
+        if (!sc.hasNext()) {
+            flights.put(flightCode, new Flight(flightCode, new Plane(touristicLayout)));
+            return;
+        }
+
+        String executiveLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
+        flights.put(flightCode, new Flight(flightCode, new Plane(touristicLayout, executiveLayout)));
     }
 
     private static void newReservation() {
