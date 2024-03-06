@@ -28,14 +28,15 @@ public class FlightManager {
     }
 
     private static void help() {
-        System.out.println("Available options:");
-        System.out.println("\tH - help");
-        System.out.println("\tI - flight info");
-        System.out.println("\tM - flight bookings");
-        System.out.println("\tF - add flight");
-        System.out.println("\tR - new booking");
-        System.out.println("\tC - cancel booking");
-        System.out.println("\tQ - quit");
+        System.out.println("""
+                                   Available options:
+                                   I - Flight info
+                                   M - Flight bookings
+                                   F - Add flight
+                                   R - New booking
+                                   C - Cancel booking
+                                   Q - Quit
+                                   """);
     }
 
     private static void flightInfo() {
