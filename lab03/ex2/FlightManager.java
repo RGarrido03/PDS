@@ -1,5 +1,7 @@
 package lab3.ex2;
 
+import lab3.ex2.utils.Error;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,18 +14,23 @@ public class FlightManager {
         System.out.println("Choose an option (H for help): ");
 
         while (sc.hasNextLine()) {
-            switch (sc.next()) {
-                case "H" -> help();
-                case "I" -> flightInfo();
-                case "M" -> flightBookings();
-                case "F" -> addFlight();
-                case "R" -> newBooking();
-                case "C" -> cancelBooking();
-                case "Q" -> System.exit(0);
-                default -> System.out.println("Invalid option");
+            try {
+                switch (sc.next()) {
+                    case "H" -> help();
+                    case "I" -> flightInfo();
+                    case "M" -> flightReservations();
+                    case "F" -> addFlight();
+                    case "R" -> newReservation();
+                    case "C" -> cancelReservation();
+                    case "Q" -> System.exit(0);
+                    default -> throw new IllegalArgumentException(Error.INVALID_OPTION.toString());
+                }
+            } catch (IllegalArgumentException e) {
+                System.err.println(e.getMessage());
+            } finally {
+                sc.nextLine();
+                System.out.println("\nChoose an option (H for help): ");
             }
-
-            System.out.println("Choose an option (H for help): ");
         }
     }
 
@@ -31,10 +38,10 @@ public class FlightManager {
         System.out.println("""
                                    Available options:
                                    I - Flight info
-                                   M - Flight bookings
+                                   M - Flight reservations
                                    F - Add flight
-                                   R - New booking
-                                   C - Cancel booking
+                                   R - New reservation
+                                   C - Cancel reservation
                                    Q - Quit
                                    """);
     }
@@ -43,19 +50,18 @@ public class FlightManager {
         System.out.println("Flight info");
     }
 
-    private static void flightBookings() {
-        System.out.println("Flight bookings");
+    private static void flightReservations() {
     }
 
     private static void addFlight() {
         System.out.println("Add flight");
     }
 
-    private static void newBooking() {
+    private static void newReservation() {
         System.out.println("New booking");
     }
 
-    private static void cancelBooking() {
+    private static void cancelReservation() {
         System.out.println("Cancel booking");
     }
 }
