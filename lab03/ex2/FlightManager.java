@@ -1,6 +1,7 @@
 package lab3.ex2;
 
 import lab3.ex2.utils.Error;
+import lab3.ex2.utils.ScannerParser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +52,13 @@ public class FlightManager {
     }
 
     private static void flightReservations() {
+        String flightCode = ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
+
+        if (!flights.containsKey(flightCode)) {
+            throw new IllegalArgumentException(Error.FLIGHT_NOT_FOUND.toString());
+        }
+
+        flights.get(flightCode).printReservations();
     }
 
     private static void addFlight() {
