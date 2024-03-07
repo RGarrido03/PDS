@@ -4,6 +4,7 @@ public enum Error {
     INVALID_OPTION("Invalid option"),
     INVALID_FILENAME("Invalid filename"),
     INVALID_FLIGHT_CODE("Invalid flight code"),
+    INVALID_RESERVATION_CODE("Invalid reservation code"),
     INVALID_NUMBER_OF_SEATS("Invalid number of seats"),
     INVALID_CLASS_TYPE("Invalid class type"),
     RESERVATION_NOT_FOUND("Reservation not found"),

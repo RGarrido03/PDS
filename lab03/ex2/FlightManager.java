@@ -94,6 +94,15 @@ public class FlightManager {
     }
 
     private static void cancelReservation() {
-        System.out.println("Cancel booking");
+        String[] reservationCode =
+                ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_RESERVATION_CODE).split(":");
+        String flightCode = reservationCode[0];
+
+        if (!flights.containsKey(flightCode)) {
+            throw new IllegalArgumentException(Error.FLIGHT_NOT_FOUND.toString());
+        }
+
+        int reservation = Integer.parseInt(reservationCode[1]);
+        flights.get(flightCode).cancelReservation(reservation);
     }
 }
