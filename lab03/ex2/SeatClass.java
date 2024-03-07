@@ -21,21 +21,29 @@ public class SeatClass implements SeatClassInterface {
 
     @Override
     public int getAvailableSeats() {
-        return 0;
+        int count = 0;
+        for (int[] row : this.seats) {
+            for (int seat : row) {
+                if (seat == 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     @Override
     public boolean isSeatAvailable(int row, int seat) {
-        return false;
+        return seats[row][seat] == 0;
     }
 
     @Override
     public void setSeatId(int row, int seat, int id) {
-
+        seats[row][seat] = id;
     }
 
     @Override
     public void emptySeat(int row, int seat) {
-
+        seats[row][seat] = 0;
     }
 }
