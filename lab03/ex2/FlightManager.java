@@ -80,7 +80,17 @@ public class FlightManager {
     }
 
     private static void newReservation() {
-        System.out.println("New booking");
+        String flightCode = ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
+
+        if (!flights.containsKey(flightCode)) {
+            throw new IllegalArgumentException(Error.FLIGHT_NOT_FOUND.toString());
+        }
+        Flight flight = flights.get(flightCode);
+        ClassType type = ScannerParser.parseClassType(sc);
+        int seats = ScannerParser.parseInt(sc, Error.INVALID_NUMBER_OF_SEATS);
+
+        Reservation reservation = flight.addReservation(type, seats);
+        System.out.printf("%s:%s\n", flightCode, reservation);
     }
 
     private static void cancelReservation() {

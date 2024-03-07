@@ -1,5 +1,7 @@
 package lab3.ex2.utils;
 
+import lab3.ex2.ClassType;
+
 import java.util.Scanner;
 
 public class ScannerParser {
@@ -15,5 +17,15 @@ public class ScannerParser {
             throw new IllegalArgumentException(error.toString());
         }
         return sc.next();
+    }
+
+    public static ClassType parseClassType(Scanner sc) {
+        for (ClassType ct : ClassType.values()) {
+            if (sc.hasNext(ct.toString())) {
+                sc.next();
+                return ct;
+            }
+        }
+        throw new IllegalArgumentException(Error.INVALID_CLASS_TYPE.toString());
     }
 }
