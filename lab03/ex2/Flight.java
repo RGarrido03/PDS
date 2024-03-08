@@ -27,7 +27,63 @@ public class Flight implements FlightInterface {
 
     @Override
     public void printReservations() {
+        // Seats per row will be lines in the table
+        // Rows will be columns in the table
+        int[] size = getPrintTableSize();
+        int seatsPerRow = size[0];
+        int rows = size[1];
 
+        SeatClass executive = this.plane.getExecutive();
+        SeatClass touristic = this.plane.getTouristic();
+
+        // Print header
+        System.out.print(" ");
+        for (int row = 0; row < rows; row++) {
+            System.out.printf(" %2d", row);
+        }
+        System.out.println();
+
+        // Print seats
+        for (int seatInRow = 0; seatInRow < seatsPerRow; seatInRow++) {
+            StringBuilder builder = new StringBuilder();
+
+            builder.append((char) ('A' + seatInRow));
+
+            if (executive != null) {
+                for (int row = 0; row < executive.getRows(); row++) {
+                    if (seatInRow < executive.getSeatsPerRow()) {
+                        builder.append(String.format(" %2d", executive.getSeat(row, seatInRow)));
+                    } else {
+                        builder.append("   ");
+                    }
+                }
+            }
+
+            for (int row = 0; row < touristic.getRows(); row++) {
+                if (seatInRow < touristic.getSeatsPerRow()) {
+                    builder.append(String.format(" %2d", touristic.getSeat(row, seatInRow)));
+                } else {
+                    builder.append("   ");
+                }
+            }
+
+            System.out.println(builder);
+        }
+    }
+
+    private int[] getPrintTableSize() {
+        int seatsPerRow = 0, rows = 0;
+        SeatClass executive = this.plane.getExecutive();
+
+        if (executive != null) {
+            seatsPerRow += executive.getSeatsPerRow();
+            rows += executive.getRows();
+        }
+
+        SeatClass touristic = this.plane.getTouristic();
+        seatsPerRow += touristic.getSeatsPerRow() > seatsPerRow ? touristic.getSeatsPerRow() : seatsPerRow;
+        rows += touristic.getRows();
+        return new int[]{seatsPerRow, rows};
     }
 
     @Override
