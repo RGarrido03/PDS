@@ -51,6 +51,10 @@ public class FlightManager {
         ScannerParser.parseRegexString(sc, ">", Error.INVALID_FILE_STRUCTURE);
         String flightCode = ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
 
+        if (flights.containsKey(flightCode)) {
+            throw new IllegalArgumentException(Error.FLIGHT_ALREADY_EXISTS.toString());
+        }
+
         String touristicLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
         String executiveLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS, true);
 
