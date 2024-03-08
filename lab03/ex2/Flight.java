@@ -103,6 +103,10 @@ public class Flight implements FlightInterface {
             case TOURISTIC -> this.plane.getTouristic();
         };
 
+        if (seatClass == null) {
+            throw new IllegalArgumentException(Error.EXECUTIVE_CLASS_NOT_AVALIABLE.toString());
+        }
+
         if (seatClass.getAvailableSeats() < seats) {
             throw new IllegalArgumentException(Error.NO_SEATS_AVALIABLE.toString());
         }
