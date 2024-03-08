@@ -51,9 +51,8 @@ public class FlightManager {
         ScannerParser.parseRegexString(sc, ">", Error.INVALID_FILE_STRUCTURE);
         String flightCode = ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
 
-        // TODO: No executive class
         String touristicLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
-        String executiveLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
+        String executiveLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS, true);
 
         Flight flight = new Flight(flightCode, new Plane(touristicLayout, executiveLayout));
 

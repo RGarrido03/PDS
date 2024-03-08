@@ -13,7 +13,14 @@ public class ScannerParser {
     }
 
     public static String parseRegexString(Scanner sc, String pattern, Error error) {
+        return parseRegexString(sc, pattern, error, false);
+    }
+
+    public static String parseRegexString(Scanner sc, String pattern, Error error, boolean optional) {
         if (!sc.hasNext(pattern)) {
+            if (optional) {
+                return null;
+            }
             throw new IllegalArgumentException(error.toString());
         }
         return sc.next();
