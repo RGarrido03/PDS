@@ -48,7 +48,23 @@ public class FlightManager {
     }
 
     private static void flightInfo() {
-        System.out.println("Flight info");
+        ScannerParser.parseRegexString(sc, ">", Error.INVALID_FILE_STRUCTURE);
+        String flightCode = ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
+
+        // TODO: No executive class
+        String touristicLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
+        String executiveLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
+
+        Flight flight = new Flight(flightCode, new Plane(touristicLayout, executiveLayout));
+
+        while (sc.hasNextLine()) {
+            ClassType type = ScannerParser.parseClassType(sc);
+            int seats = ScannerParser.parseInt(sc, Error.INVALID_NUMBER_OF_SEATS);
+
+            flight.addReservation(type, seats);
+        }
+
+        flights.put(flightCode, flight);
     }
 
     private static void flightReservations() {

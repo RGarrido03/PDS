@@ -7,6 +7,7 @@ public enum Error {
     INVALID_RESERVATION_CODE("Invalid reservation code"),
     INVALID_NUMBER_OF_SEATS("Invalid number of seats"),
     INVALID_CLASS_TYPE("Invalid class type"),
+    INVALID_FILE_STRUCTURE("Invalid file structure"),
     RESERVATION_NOT_FOUND("Reservation not found"),
     FLIGHT_NOT_FOUND("Flight not found"),
     NO_SEATS_AVALIABLE("No seats available"),
