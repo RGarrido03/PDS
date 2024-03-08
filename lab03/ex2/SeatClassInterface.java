@@ -23,6 +23,29 @@ public interface SeatClassInterface {
     int getAvailableSeats();
 
     /**
+     * Get the number of seat rows.
+     *
+     * @return Number of rows.
+     */
+    int getRows();
+
+    /**
+     * Get the number of seats per row.
+     *
+     * @return Number of seats per row.
+     */
+    int getSeatsPerRow();
+
+    /**
+     * Get a seat's reservation ID.
+     *
+     * @param row  Row number.
+     * @param seat Seat number, i.e., the column in the grid.
+     * @return Reservation ID.
+     */
+    int getSeat(int row, int seat);
+
+    /**
      * Check if a seat is available.
      *
      * @param row  Row number.

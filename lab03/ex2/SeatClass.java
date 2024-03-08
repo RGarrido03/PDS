@@ -33,6 +33,21 @@ public class SeatClass implements SeatClassInterface {
     }
 
     @Override
+    public int getRows() {
+        return this.seats.length;
+    }
+
+    @Override
+    public int getSeatsPerRow() {
+        return this.seats[0].length;
+    }
+
+    @Override
+    public int getSeat(int row, int seat) {
+        return this.seats[row][seat];
+    }
+
+    @Override
     public boolean isSeatAvailable(int row, int seat) {
         return seats[row][seat] == 0;
     }
