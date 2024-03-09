@@ -1,5 +1,9 @@
 package lab3.ex2;
 
+import lab3.ex2.utils.Error;
+
+import java.util.Arrays;
+
 public class SeatClass implements SeatClassInterface {
     private final ClassType type;
     private final int[][] seats;
@@ -35,6 +39,24 @@ public class SeatClass implements SeatClassInterface {
     @Override
     public int getRows() {
         return this.seats.length;
+    }
+
+    @Override
+    public boolean isRowAvailable(int row) {
+        if (row < 0 || row >= this.getRows()) {
+            throw new IndexOutOfBoundsException(Error.INVALID_ROW.toString());
+        }
+        return Arrays.stream(this.seats[row]).allMatch(seat -> isSeatAvailable(row, seat));
+    }
+
+    @Override
+    public int getFirstAvailableRow() {
+        for (int row = 0; row < this.getRows(); row++) {
+            if (isRowAvailable(row)) {
+                return row;
+            }
+        }
+        return -1;
     }
 
     @Override

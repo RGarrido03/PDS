@@ -30,6 +30,21 @@ public interface SeatClassInterface {
     int getRows();
 
     /**
+     * Get if a row is fully available.
+     *
+     * @param row Row number.
+     * @return Whether the row is available or not.
+     */
+    boolean isRowAvailable(int row) throws IndexOutOfBoundsException;
+
+    /**
+     * Get the first fully available row.
+     *
+     * @return Row number. -1 if not found.
+     */
+    int getFirstAvailableRow();
+
+    /**
      * Get the number of seats per row.
      *
      * @return Number of seats per row.
