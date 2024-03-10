@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public record Reservation(int id, ClassType type, List<Integer[]> seats) {
     public String toString() {
         return id + " = " + seats.stream()
-                                 .map(object -> object[0] + "" + ('A' + object[1]))
-                                 .collect(Collectors.joining("|"));
+                                 .map(object -> object[0] + "" + (char) ('A' + object[1]))
+                                 .collect(Collectors.joining(" | "));
     }
 }
