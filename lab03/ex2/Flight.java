@@ -81,7 +81,7 @@ public class Flight implements FlightInterface {
         }
 
         SeatClass touristic = this.plane.getTouristic();
-        seatsPerRow += touristic.getSeatsPerRow() > seatsPerRow ? touristic.getSeatsPerRow() : seatsPerRow;
+        seatsPerRow = touristic.getSeatsPerRow() > seatsPerRow ? touristic.getSeatsPerRow() : seatsPerRow;
         rows += touristic.getRows();
         return new int[]{seatsPerRow, rows};
     }
