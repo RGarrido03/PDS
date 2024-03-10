@@ -31,7 +31,7 @@ public class FlightManager {
             } catch (IllegalArgumentException e) {
                 System.err.println(e.getMessage());
             } catch (FileNotFoundException e) {
-                System.err.println("File not found: " + e.getMessage());
+                System.err.println("File not found. Check the path: " + System.getProperty("user.dir"));
             } finally {
                 sc.nextLine();
                 System.out.println("\nChoose an option (H for help): ");
@@ -52,12 +52,12 @@ public class FlightManager {
     }
 
     private static void flightInfo() throws FileNotFoundException {
-        String filename = ScannerParser.parseRegexString(sc, "\\.txt$", Error.INVALID_FILENAME);
+        String filename = ScannerParser.parseRegexString(sc, ".+\\.txt$", Error.INVALID_FILENAME);
 
-        Scanner sc2 = new Scanner(new File(filename));
+        Scanner sc2 = new Scanner(new File("ex2/" + filename));
 
-        ScannerParser.parseRegexString(sc2, ">", Error.INVALID_FILE_STRUCTURE);
-        String flightCode = ScannerParser.parseRegexString(sc2, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
+        String flightCodeWithChevron = ScannerParser.parseRegexString(sc2, ">[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
+        String flightCode = flightCodeWithChevron.substring(1);
 
         if (flights.containsKey(flightCode)) {
             throw new IllegalArgumentException(Error.FLIGHT_ALREADY_EXISTS.toString());

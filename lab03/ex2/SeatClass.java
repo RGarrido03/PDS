@@ -3,7 +3,6 @@ package lab3.ex2;
 import lab3.ex2.utils.Error;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SeatClass implements SeatClassInterface {
@@ -48,7 +47,12 @@ public class SeatClass implements SeatClassInterface {
         if (row < 0 || row >= this.getRows()) {
             throw new IndexOutOfBoundsException(Error.INVALID_ROW.toString());
         }
-        return Arrays.stream(this.seats[row]).allMatch(seat -> isSeatAvailable(row, seat));
+        for (int i = 0; i < this.seats[row].length; i++) {
+            if (!isSeatAvailable(row, i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -102,7 +106,7 @@ public class SeatClass implements SeatClassInterface {
     public List<Integer[]> setSeats(int seats, int reservationId) {
         List<Integer[]> reservations = new ArrayList<>();
         int rowsNeeded = Math.ceilDiv(seats, this.getSeatsPerRow());
-        int lastRowSeats = seats % 6;
+        int lastRowSeats = seats % this.getSeatsPerRow();
 
         for (int row = 0; row < rowsNeeded; row++) {
             int seatsNeededInRow = row == (rowsNeeded - 1) ? lastRowSeats : this.getSeatsPerRow();
