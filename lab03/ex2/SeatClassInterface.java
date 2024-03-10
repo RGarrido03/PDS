@@ -1,5 +1,7 @@
 package lab3.ex2;
 
+import java.util.List;
+
 public interface SeatClassInterface {
     /**
      * Get the type of the class.
@@ -85,4 +87,31 @@ public interface SeatClassInterface {
      * @param seat Seat number, i.e., the column in the grid.
      */
     void emptySeat(int row, int seat);
+
+    /**
+     * Get a random available coordinate.
+     *
+     * @return Seat coordinates. Null if not found.
+     */
+    Integer[] getRandomAvailableSeat();
+
+    /**
+     * Given the number of requested seats, get coordinates for each seat, prefeberally in full rows.
+     *
+     * @param seats         Number of seats.
+     * @param reservationId Reservation ID.
+     * @return List of seat coordinates.
+     */
+    List<Integer[]> setSeats(int seats, int reservationId);
+
+    /**
+     * Given the number of requested seats, get coordinates for each seat, without a criteria.
+     * <p>
+     * Helper function for <code>setSeats</code>.
+     *
+     * @param seats Number of seats.
+     * @return List of seat coordinates.
+     * @throws IllegalArgumentException If there are no seats available.
+     */
+    List<Integer[]> setSeatsRandomly(int seats) throws IllegalArgumentException;
 }

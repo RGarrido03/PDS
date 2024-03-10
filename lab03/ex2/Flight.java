@@ -111,9 +111,11 @@ public class Flight implements FlightInterface {
             throw new IllegalArgumentException(Error.NO_SEATS_AVALIABLE.toString());
         }
 
-        // TODO: Add the seat logic
-
-        return new Reservation(0, type, List.of());
+        int id = this.reservations.size();
+        List<Integer[]> seatsL = seatClass.setSeats(seats, id);
+        Reservation reservation = new Reservation(id, type, seatsL);
+        reservations.add(reservation);
+        return reservation;
     }
 
     @Override

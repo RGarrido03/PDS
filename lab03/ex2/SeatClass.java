@@ -2,7 +2,9 @@ package lab3.ex2;
 
 import lab3.ex2.utils.Error;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SeatClass implements SeatClassInterface {
     private final ClassType type;
@@ -82,5 +84,66 @@ public class SeatClass implements SeatClassInterface {
     @Override
     public void emptySeat(int row, int seat) {
         seats[row][seat] = 0;
+    }
+
+    @Override
+    public Integer[] getRandomAvailableSeat() {
+        for (int row = 0; row < this.getRows(); row++) {
+            for (int seat = 0; seat < this.getSeatsPerRow(); seat++) {
+                if (isSeatAvailable(row, seat)) {
+                    return new Integer[]{row, seat};
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Integer[]> setSeats(int seats, int reservationId) {
+        List<Integer[]> reservations = new ArrayList<>();
+        int rowsNeeded = Math.ceilDiv(seats, this.getSeatsPerRow());
+        int lastRowSeats = seats % 6;
+
+        for (int row = 0; row < rowsNeeded; row++) {
+            int seatsNeededInRow = row == (rowsNeeded - 1) ? lastRowSeats : this.getSeatsPerRow();
+
+            int freeRow = this.getFirstAvailableRow();
+            if (freeRow == -1) {
+                try {
+                    reservations.addAll(this.setSeatsRandomly(seatsNeededInRow));
+                } catch (IllegalArgumentException e) {
+                    reservations.forEach(seat -> this.setSeatId(seat[0], seat[1], 0));
+                    throw e;
+                }
+                continue;
+            }
+
+            for (int seat = 0; seat < seatsNeededInRow; seat++) {
+                this.setSeatId(freeRow, seat, -1);
+                reservations.add(new Integer[]{freeRow, seat});
+            }
+        }
+
+        reservations.forEach(seat -> this.setSeatId(seat[0], seat[1], reservationId));
+        return reservations;
+    }
+
+    @Override
+    public List<Integer[]> setSeatsRandomly(int seats) throws IllegalArgumentException {
+        List<Integer[]> reservations = new ArrayList<>();
+
+        for (int seat = 0; seat < seats; seat++) {
+            Integer[] random = this.getRandomAvailableSeat();
+
+            if (random == null) {
+                reservations.forEach(reservation -> this.setSeatId(reservation[0], reservation[1], 0));
+                throw new IllegalArgumentException(Error.NO_SEATS_AVALIABLE.toString());
+            }
+
+            this.setSeatId(random[0], random[1], -1);
+            reservations.add(random);
+        }
+
+        return reservations;
     }
 }
