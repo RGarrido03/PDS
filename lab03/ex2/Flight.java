@@ -111,7 +111,7 @@ public class Flight implements FlightInterface {
             throw new IllegalArgumentException(Error.NO_SEATS_AVALIABLE.toString());
         }
 
-        int id = this.reservations.size();
+        int id = this.reservations.size() + 1; // IDs must start at 1 and not 0
         List<Integer[]> seatsL = seatClass.setSeats(seats, id);
         Reservation reservation = new Reservation(id, type, seatsL);
         reservations.add(reservation);
