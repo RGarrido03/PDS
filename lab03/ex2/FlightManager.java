@@ -76,6 +76,14 @@ public class FlightManager {
         }
 
         flights.put(flightCode, flight);
+        System.out.println("Flight code " + flightCode + ". ");
+        System.out.println(flight.getPlane().getTouristic().getCapacity() + " Touristic seats.");
+
+        if (flight.getPlane().getExecutive() != null) {
+            System.out.println(flight.getPlane().getExecutive().getCapacity() + " Executive seats.");
+        } else {
+            System.out.println("No Executive seats in this flight.");
+        }
     }
 
     private static void flightReservations() {

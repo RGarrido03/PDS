@@ -4,18 +4,11 @@ import java.util.List;
 
 public interface SeatClassInterface {
     /**
-     * Get the type of the class.
+     * Get the number of seats in this class.
      *
-     * @return Class type.
+     * @return Number of seats.
      */
-    ClassType getType();
-
-    /**
-     * Get the seat grid.
-     *
-     * @return Seats array.
-     */
-    int[][] getSeats();
+    int getCapacity();
 
     /**
      * Get how many available seats are there.

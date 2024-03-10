@@ -15,13 +15,8 @@ public class SeatClass implements SeatClassInterface {
     }
 
     @Override
-    public ClassType getType() {
-        return this.type;
-    }
-
-    @Override
-    public int[][] getSeats() {
-        return this.seats;
+    public int getCapacity() {
+        return this.getRows() * this.getSeatsPerRow();
     }
 
     @Override
