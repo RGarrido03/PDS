@@ -130,7 +130,7 @@ public class FlightManager {
 
     private static void cancelReservation() {
         String[] reservationCode =
-                ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_RESERVATION_CODE).split(":");
+                ScannerParser.parseRegexString(sc, "[A-Z0-9]+:\\d+", Error.INVALID_RESERVATION_CODE).split(":");
         String flightCode = reservationCode[0];
 
         if (!flights.containsKey(flightCode)) {
