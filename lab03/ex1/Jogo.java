@@ -1,11 +1,17 @@
 package lab3.ex1;
 
+
 public class Jogo implements JGaloInterface {
+
 
     boolean isPlayerX = true;
     private char[][] tabuleiro;
     private int jogadas;
 
+
+    /**
+     * Instantiates a new Game creating board.
+     */
     public Jogo() {
         tabuleiro = new char[3][3];
 
@@ -15,16 +21,25 @@ public class Jogo implements JGaloInterface {
             }
         }
         jogadas = 0;
-
     }
 
+    /**
+     * Switching through players in each turn
+     *
+     * @return char
+     */
     public char getActualPlayer() {
-
         isPlayerX = !isPlayerX;
         return isPlayerX ? 'O' : 'X';
-
     }
 
+    /**
+     * Play on a valid spot in board
+     *
+     * @param lin
+     * @param col
+     * @return boolean
+     */
     public boolean setJogada(int lin, int col) {
         if (tabuleiro[lin - 1][col - 1] == ' ') {
             tabuleiro[lin - 1][col - 1] = isPlayerX ? 'O' : 'X';
@@ -35,6 +50,11 @@ public class Jogo implements JGaloInterface {
         return false;
     }
 
+    /**
+     * Checking winner by iterate through the board and check for three same symbols.
+     *
+     * @return char
+     */
     public char vencedor() {
 
         // Check horizontal or vertical lines
@@ -51,14 +71,23 @@ public class Jogo implements JGaloInterface {
                 tabuleiro[2][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[0][2]) {
             return tabuleiro[1][1];
         }
-
         return ' ';
     }
 
+    /**
+     * Check if game is finished
+     *
+     * @return boolean
+     */
     public boolean isFinished() {
         return vencedor() != ' ' || jogadas == 9;
     }
 
+    /**
+     * Who is the winner
+     *
+     * @return char
+     */
     public char checkResult() {
 
         if (vencedor() == 'X') {
@@ -66,7 +95,6 @@ public class Jogo implements JGaloInterface {
         } else if (vencedor() == 'O') {
             return 'O';
         }
-
         return ' ';
     }
 }
