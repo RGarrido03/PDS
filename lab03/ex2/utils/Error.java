@@ -9,6 +9,7 @@ public enum Error {
     INVALID_CLASS_TYPE("Invalid class type"),
     INVALID_FILE_STRUCTURE("Invalid file structure"),
     INVALID_ROW("Invalid row"),
+    FILE_NOT_FOUND("File not found"),
     RESERVATION_NOT_FOUND("Reservation not found"),
     FLIGHT_NOT_FOUND("Flight not found"),
     NO_SEATS_AVALIABLE("No seats available"),

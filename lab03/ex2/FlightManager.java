@@ -3,6 +3,8 @@ package lab3.ex2;
 import lab3.ex2.utils.Error;
 import lab3.ex2.utils.ScannerParser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -28,6 +30,8 @@ public class FlightManager {
                 }
             } catch (IllegalArgumentException e) {
                 System.err.println(e.getMessage());
+            } catch (FileNotFoundException e) {
+                System.err.println("File not found: " + e.getMessage());
             } finally {
                 sc.nextLine();
                 System.out.println("\nChoose an option (H for help): ");
@@ -47,22 +51,26 @@ public class FlightManager {
                                    """);
     }
 
-    private static void flightInfo() {
-        ScannerParser.parseRegexString(sc, ">", Error.INVALID_FILE_STRUCTURE);
-        String flightCode = ScannerParser.parseRegexString(sc, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
+    private static void flightInfo() throws FileNotFoundException {
+        String filename = ScannerParser.parseRegexString(sc, "\\.txt$", Error.INVALID_FILENAME);
+
+        Scanner sc2 = new Scanner(new File(filename));
+
+        ScannerParser.parseRegexString(sc2, ">", Error.INVALID_FILE_STRUCTURE);
+        String flightCode = ScannerParser.parseRegexString(sc2, "[A-Z0-9]+", Error.INVALID_FLIGHT_CODE);
 
         if (flights.containsKey(flightCode)) {
             throw new IllegalArgumentException(Error.FLIGHT_ALREADY_EXISTS.toString());
         }
 
-        String touristicLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
-        String executiveLayout = ScannerParser.parseRegexString(sc, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS, true);
+        String touristicLayout = ScannerParser.parseRegexString(sc2, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
+        String executiveLayout = ScannerParser.parseRegexString(sc2, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS, true);
 
         Flight flight = new Flight(flightCode, new Plane(touristicLayout, executiveLayout));
 
-        while (sc.hasNextLine()) {
-            ClassType type = ScannerParser.parseClassType(sc);
-            int seats = ScannerParser.parseInt(sc, Error.INVALID_NUMBER_OF_SEATS);
+        while (sc2.hasNextLine()) {
+            ClassType type = ScannerParser.parseClassType(sc2);
+            int seats = ScannerParser.parseInt(sc2, Error.INVALID_NUMBER_OF_SEATS);
 
             flight.addReservation(type, seats);
         }
