@@ -4,17 +4,31 @@ import lab3.ex2.utils.Error;
 import lab3.ex2.utils.ScannerParser;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class FlightManager {
-    private static final Scanner sc = new Scanner(System.in);
     private static final Map<String, Flight> flights = new HashMap<>();
+    private static Scanner sc;
 
     public static void main(String[] args) {
-        System.out.println("Choose an option (H for help): ");
+        if (args.length == 1) {
+            try {
+                System.setIn(new FileInputStream(args[0]));
+            } catch (FileNotFoundException e) {
+                System.err.println(Error.FILE_NOT_FOUND);
+                System.exit(1);
+            }
+        }
+
+        sc = new Scanner(System.in);
+
+        if (args.length == 0) {
+            System.out.println("Choose an option (H for help): ");
+        }
 
         while (sc.hasNextLine()) {
             try {
@@ -33,8 +47,12 @@ public class FlightManager {
             } catch (FileNotFoundException e) {
                 System.err.println("File not found. Check the path: " + System.getProperty("user.dir"));
             } finally {
-                sc.nextLine();
-                System.out.println("\nChoose an option (H for help): ");
+                if (sc.hasNextLine()) {
+                    sc.nextLine();
+                }
+                if (args.length == 0) {
+                    System.out.println("\nChoose an option (H for help): ");
+                }
             }
         }
     }
