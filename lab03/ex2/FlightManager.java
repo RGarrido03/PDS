@@ -70,7 +70,7 @@ public class FlightManager {
     }
 
     private static void flightInfo() throws FileNotFoundException {
-        String filename = ScannerParser.parseRegexString(sc, ".+\\.txt$", Error.INVALID_FILENAME);
+        String filename = ScannerParser.parseRegexString(sc, ".+\\.txt", Error.INVALID_FILENAME);
 
         Scanner sc2 = new Scanner(new File("ex2/" + filename));
 
