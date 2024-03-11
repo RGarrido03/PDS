@@ -63,19 +63,19 @@ public class FlightManager {
             throw new IllegalArgumentException(Error.FLIGHT_ALREADY_EXISTS.toString());
         }
 
-        String touristicLayout = ScannerParser.parseRegexString(sc2, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
-        String executiveLayout = ScannerParser.parseRegexString(sc2, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS, true);
+        String first = ScannerParser.parseRegexString(sc2, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS);
+        String second = ScannerParser.parseRegexString(sc2, "\\d+x\\d+", Error.INVALID_NUMBER_OF_SEATS, true);
 
+        String touristicLayout, executiveLayout;
+        if (second == null) {
+            touristicLayout = first;
+            executiveLayout = null;
+        } else {
+            executiveLayout = first;
+            touristicLayout = second;
+        }
         Flight flight = new Flight(flightCode, new Plane(touristicLayout, executiveLayout));
 
-        while (sc2.hasNextLine()) {
-            ClassType type = ScannerParser.parseClassType(sc2);
-            int seats = ScannerParser.parseInt(sc2, Error.INVALID_NUMBER_OF_SEATS);
-
-            flight.addReservation(type, seats);
-        }
-
-        flights.put(flightCode, flight);
         System.out.println("Flight code " + flightCode + ". ");
         System.out.println(flight.getPlane().getTouristic().getCapacity() + " Touristic seats.");
 
@@ -84,6 +84,20 @@ public class FlightManager {
         } else {
             System.out.println("No Executive seats in this flight.");
         }
+
+        while (sc2.hasNextLine()) {
+            ClassType type = ScannerParser.parseClassType(sc2);
+            int seats = ScannerParser.parseInt(sc2, Error.INVALID_NUMBER_OF_SEATS);
+
+            try {
+                flight.addReservation(type, seats);
+            } catch (IllegalArgumentException e) {
+                System.err.println("It's not possible to add a reservation for " + type + " " + seats);
+                return;
+            }
+        }
+
+        flights.put(flightCode, flight);
     }
 
     private static void flightReservations() {
