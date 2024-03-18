@@ -19,7 +19,6 @@ public class Main {
 
         Container[] containers = new Container[MENUS];
 
-
         for (int m = 0; m < MENUS; m++) {
             containers[m] = ContainerFactory.create(menu[m]);
         }

@@ -17,5 +17,4 @@ public class PortionFactory {
             default -> null;
         };
     }
-
 }

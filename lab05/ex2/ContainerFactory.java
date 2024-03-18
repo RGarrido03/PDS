@@ -6,11 +6,11 @@ public class ContainerFactory {
 
     public static Container create(Portion portion) {
 
-        return switch (portion.getState().toString() + portion.getTemperature().toString()) {
-            case "BottleCOLD" -> new PlasticBottle();
-            case "BottleWARM" -> new TermicBottle();
-            case "MeatWARM" -> new Tupperware();
-            case "MeatCOLD" -> new PlasticBag();
+        return switch (portion.getState() + portion.getTemperature().toString()) {
+            case "LiquidCOLD" -> new PlasticBottle();
+            case "SolidWARM" -> new TermicBottle();
+            case "LiquidWARM" -> new Tupperware();
+            case "SolidCOLD" -> new PlasticBag();
             default -> null;
         };
 
