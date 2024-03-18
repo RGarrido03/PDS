@@ -13,4 +13,8 @@ public class FruitJuice extends Food {
     }
 
     public String getType() {return type;}
+
+    public String toString() {
+        return getClass().getSimpleName() + ": " + getType() + " State " + getState() + ", Temperature " + getTemperature();
+    }
 }

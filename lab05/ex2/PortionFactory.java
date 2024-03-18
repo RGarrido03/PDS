@@ -13,8 +13,9 @@ public class PortionFactory {
             case "BeverageCOLD" -> new FruitJuice("Orange");
             case "BeverageWARM" -> new Milk();
             case "MeatCOLD" -> new Tuna();
-            case "MeatWORM" -> new Pork();
+            case "MeatWARM" -> new Pork();
             default -> null;
         };
     }
+
 }

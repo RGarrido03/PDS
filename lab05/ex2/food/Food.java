@@ -9,6 +9,7 @@ public class Food implements Portion {
     private final State state;
     private final Temperature temperature;
 
+
     public Food(State state, Temperature temperature) {
         this.state = state;
         this.temperature = temperature;
@@ -23,6 +24,6 @@ public class Food implements Portion {
     }
 
     public String toString() {
-        return getClass().getSimpleName() + state.toString() + " " + temperature;
+        return getClass().getSimpleName() + ": State " +state.toString() + ", Temperature " + temperature;
     }
 }

@@ -16,11 +16,14 @@ public class Main {
         for (Portion p : menu)
             System.out.println(p);
 
+
         Container[] containers = new Container[MENUS];
+
 
         for (int m = 0; m < MENUS; m++) {
             containers[m] = ContainerFactory.create(menu[m]);
         }
+
         System.out.println("---- Take the packages: ----");
         for (Container c : containers) {
             System.out.println(c);
