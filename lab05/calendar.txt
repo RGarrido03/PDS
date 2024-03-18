@@ -1,0 +1,28 @@
+Encontramos três padrões para a criação de um objeto da classe Calendar:
+
+Factory
+Presente nos métodos getInstance(), onde se retorna um objeto desta classe.
+
+Creator
+Presente no método createCalendar().
+É criado um objeto de uma subclasse de Calendar através de um switch:
+switch (caltype) {
+    case "buddhist" -> new BuddhistCalendar(zone, aLocale);
+    case "japanese" -> new JapaneseImperialCalendar(zone, aLocale);
+    case "gregory" -> new GregorianCalendar(zone, aLocale);
+    default -> null;
+};
+
+Builder
+Presente no método build().
+O objeto é inicializado praticamente vazio, sendo utilizados 'setters' que definem os vários atributos.
+if (locale == null) {
+    locale = Locale.getDefault();
+}
+if (zone == null) {
+    zone = defaultTimeZone(locale);
+}
+if (type == null) {
+    type = locale.getUnicodeLocaleType("ca");
+}
+...
