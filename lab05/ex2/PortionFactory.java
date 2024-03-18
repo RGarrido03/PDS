@@ -1,5 +1,10 @@
 package ex2;
 
+import ex2.food.FruitJuice;
+import ex2.food.Milk;
+import ex2.food.Pork;
+import ex2.food.Tuna;
+
 public class PortionFactory {
 
     public static Portion create(String food, Temperature temperature) {

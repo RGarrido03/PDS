@@ -1,5 +1,7 @@
 package ex2;
 
+import ex2.container.Container;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,6 +17,7 @@ public class Main {
             System.out.println(p);
 
         Container[] containers = new Container[MENUS];
+
         for (int m = 0; m < MENUS; m++) {
             containers[m] = ContainerFactory.create(menu[m]);
         }

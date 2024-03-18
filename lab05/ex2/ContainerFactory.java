@@ -1,14 +1,18 @@
 package ex2;
 
+import ex2.container.*;
+
 public class ContainerFactory {
 
-    public static Container create(State state, Temperature temperature) {
+    public static Container create(Portion portion) {
 
-        return switch(state + temperature){
-            case "BeverageCOLD" -> new FruitJuice("Orange");
-            case "BeverageWARM" -> new Milk();
-            case "MeatCOLD" -> new Tuna();
-            case "MeatWORM" -> new Pork();
+        return switch (portion.getState().toString() + portion.getTemperature().toString()) {
+            case "BottleCOLD" -> new PlasticBottle();
+            case "BottleWARM" -> new TermicBottle();
+            case "MeatWARM" -> new Tupperware();
+            case "MeatCOLD" -> new PlasticBag();
             default -> null;
+        };
 
     }
+}

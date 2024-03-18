@@ -1,11 +1,14 @@
-package ex2;
+package ex2.container;
 
-public class Food implements Portion{
+import ex2.Portion;
+import ex2.State;
+import ex2.Temperature;
 
-    private State state;
-    private Temperature temperature;
+public class Container implements Portion {
+    private final State state;
+    private final Temperature temperature;
 
-    public Food(State state, Temperature temperature) {
+    public Container(State state, Temperature temperature) {
         this.state = state;
         this.temperature = temperature;
     }
