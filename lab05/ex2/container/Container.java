@@ -22,6 +22,6 @@ public class Container implements Portion {
     }
 
     public String toString() {
-        return getClass().getSimpleName() + " with portion= "+ " State " + state.toString() + ", Temperature " + temperature;
+        return getClass().getSimpleName() + " with portion= ";
     }
 }
