@@ -1,4 +1,6 @@
- // to complete
+package ex1;
+
+// to complete
  public class Lab06ex1 {
     public static void main(String[] args) {
         CakeMaster cakeMaster = new CakeMaster();

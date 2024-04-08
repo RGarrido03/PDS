@@ -1,4 +1,4 @@
- // to complete
+package ex2; // to complete
 
 public class Movie {
    private final String title;
