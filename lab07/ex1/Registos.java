@@ -16,7 +16,7 @@ public class Registos {
     }
 
     public void remove(int codigo) { // Code to remove employee
-        empregados.remove(codigo);
+        empregados.remove((Integer) codigo);
     }
     public boolean isEmpregado(int codigo) { // Code to find employee
         return empregados.stream().map(Empregado::codigo).anyMatch(n -> n == codigo);
