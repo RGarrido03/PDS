@@ -1,3 +1,5 @@
+package ex3;
+
 public class BasicPrinter {
     
     private int inkAmount; 
