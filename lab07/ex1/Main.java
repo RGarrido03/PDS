@@ -26,20 +26,32 @@ public class Main {
         registos.insere(empregado2);
         registos.insere(empregado3);
 
+        registos.isEmpregado(650);
+
 
         // Adapter
         database.addEmployee(new Adapter(empregado1));
         database.addEmployee(new Adapter(empregado2));
         database.addEmployee(new Adapter(empregado3));
 
+        System.out.println("\n------------Registos------------");
         System.out.println(registos.listaDeEmpregados());
+
+        System.out.println("\n------------Database------------");
         System.out.println(Arrays.toString(database.getAllEmployees()));
 
+        System.out.println("\n------------Registos atualizado------------");
+        registos.remove(400);
+        System.out.println(registos.listaDeEmpregados());
+
+        System.out.println("\n------------Database atualizada------------");
         database.deleteEmployee(12);
         database.deleteEmployee(new Adapter(empregado2).getEmpNum());
 
         System.out.println(registos.listaDeEmpregados());
         System.out.println(Arrays.toString(database.getAllEmployees()));
+
+
 
     }
 }
