@@ -1,0 +1,58 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Main {
+  + Main(): 
+  + main(String[]): void
+}
+class Movie {
+  + Movie(String, int, Person, Person, String, List<Person>, List<Place>, List<String>, List<String>, boolean, boolean, boolean): 
+  + Movie(): 
+  - languages: List<String>
+  - isIndependent: boolean
+  - writer: Person
+  - series: String
+  - genres: List<String>
+  - director: Person
+  - isTelevision: boolean
+  - locations: List<Place>
+  - title: String
+  - year: int
+  - cast: List<Person>
+  - isNetflix: boolean
+  + toString(): String
+  + getCast(): List<Person>
+  + getGenres(): List<String>
+  + isTelevision(): boolean
+  + getLocations(): List<Place>
+  + getLanguages(): List<String>
+  + isNetflix(): boolean
+  + getDirector(): Person
+  + getSeries(): String
+  + isIndependent(): boolean
+  + getWriter(): Person
+  + getTitle(): String
+  + getYear(): int
+}
+class Person {
+  + Person(String): 
+  # name: String
+  + getName(): String
+  + setName(String): void
+  + toString(): String
+}
+class Place {
+  + Place(String): 
+  # location: String
+  + getLocation(): String
+  + toString(): String
+  + setLocation(String): void
+}
+
+Main    -[#595959,dashed]->  Person : "«create»"
+Movie  "1" *-[#595959,plain]-> "cast\n*" Person 
+Movie  "1" *-[#595959,plain]-> "locations\n*" Place  
+@enduml
