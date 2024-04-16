@@ -12,7 +12,7 @@ public class AdvancedPrinter implements AdvancedPrinterInterface {
     }
 
     // https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ExecutorService.html
-    class PrinterService implements Runnable {
+    static class PrinterService implements Runnable {
         private final LinkedBlockingQueue<PrintJob> printQueue;
         private final ExecutorService pool;
 
@@ -39,11 +39,13 @@ public class AdvancedPrinter implements AdvancedPrinterInterface {
         }
 
         public int newPrintJob(Document doc) {
-            // TODO: adiciona 'print job' à fila de impressão
+            PrintJob printJob = new PrintJob(doc);
+            printQueue.add(printJob);
+            return printJob.getJobId();
         }
 
         public boolean cancelJob(int job) {
-            // TODO: cancela 'print job', se existir na fila
+            return printQueue.removeIf(printJob -> printJob.getJobId() == job);
         }
 
         void shutdownAndAwaitTermination() {
