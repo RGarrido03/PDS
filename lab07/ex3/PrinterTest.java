@@ -13,30 +13,36 @@ public class PrinterTest {
         }
     }
 
-    public static void main(String[] args) {
-        AdvancedPrinterInterface p = new AdvancedPrinter();
-
+    public static void testPrinter(AdvancedPrinterInterface printer) {
         List<Document> docs = new ArrayList<>();
         docs.add(new Document("ex3/text1.txt"));
         docs.add(new Document("ex3/text2.txt"));
         docs.add(new Document("ex3/text3.txt"));
 
-        p.print(docs.getFirst());     // print first document only
+        printer.print(docs.getFirst());     // print first document only
         pause(2000);            // wait for a while
 
-        p.print(docs);
-        p.showQueuedJobs();
+        printer.print(docs);
+        printer.showQueuedJobs();
         pause(4000);            // wait for a while
 
-        p.print(docs);
-        p.cancelJob(6);
-        p.showQueuedJobs();
+        printer.print(docs);
+        printer.cancelJob(6);
+        printer.showQueuedJobs();
         pause(4000);            // wait for a while
 
-        p.print(docs);
-        p.cancelAll();
-        p.showQueuedJobs();
+        printer.print(docs);
+        printer.cancelAll();
+        printer.showQueuedJobs();
 
         pause(2000);            // wait for a while
+    }
+
+    public static void main(String[] args) {
+        AdvancedPrinterInterface advancedPrinter = new AdvancedPrinter();
+        AdvancedPrinterInterface basicPrinter = new Adapter(new BasicPrinter());
+
+        testPrinter(advancedPrinter);
+        testPrinter(basicPrinter);
     }
 }
