@@ -15,6 +15,12 @@ public class PrintJob implements Callable<Document> {
 
     @Override
     public Document call() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Finished " + this);
         return document;
     }
 
@@ -24,6 +30,6 @@ public class PrintJob implements Callable<Document> {
 
     @Override
     public String toString() {
-        return document.toString();
+        return "Job " + jobId + ": \"" + document.toString() + "\"";
     }
 }
