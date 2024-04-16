@@ -45,7 +45,14 @@ public class AdvancedPrinter implements AdvancedPrinterInterface {
         }
 
         public boolean cancelJob(int job) {
-            return printQueue.removeIf(printJob -> printJob.getJobId() == job);
+            Optional<PrintJob> found = printQueue.stream().filter(printJob -> printJob.getJobId() == job).findFirst();
+            if (found.isEmpty()) {
+                return false;
+            }
+
+            printQueue.remove(found.get());
+            System.out.println("Cancelled " + found.get());
+            return true;
         }
 
         void shutdownAndAwaitTermination() {
