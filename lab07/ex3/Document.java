@@ -22,6 +22,6 @@ public class Document {
 
     @Override
     public String toString() {
-        return text.substring(0, 15) + "...";
+        return text.substring(0, 20) + "...";
     }
 }
