@@ -7,7 +7,7 @@ public class Adapter implements AdvancedPrinterInterface {
     private final BasicPrinter basicPrinter;
 
     // Spool (i.e., the service wrapping the spool)
-    private final AdvancedPrinter.PrinterService printerService = new AdvancedPrinter.PrinterService();
+    private final PrinterService printerService = new PrinterService();
 
     public Adapter(BasicPrinter basicPrinter) {
         this.basicPrinter = basicPrinter;
@@ -15,17 +15,15 @@ public class Adapter implements AdvancedPrinterInterface {
 
     @Override
     public int print(Document doc) {
-        // TODO: Refactor to accomodate the spool
         String[] content = {doc.getText()};
         if (basicPrinter.print(content)) {
-            return 0;
+            return printerService.newPrintJob(doc);
         }
         return -1;
     }
 
     @Override
     public List<Integer> print(List<Document> docs) {
-        // TODO: Refactor to accomodate the spool
         List<Integer> jobIds = new ArrayList<>();
         for (Document doc : docs) {
             jobIds.add(print(doc));
@@ -35,17 +33,26 @@ public class Adapter implements AdvancedPrinterInterface {
 
     @Override
     public void showQueuedJobs() {
-        // TODO: Implement this method
+        if (printerService.getPrintQueue().isEmpty()) {
+            System.out.println("No spooled jobs.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Spooled jobs:\n");
+        printerService.getPrintQueue().stream().map(printJob -> "  * " + printJob.toString() + "\n").forEach(sb::append);
+        System.out.println(sb);
+
     }
 
     @Override
     public boolean cancelJob(int jobId) {
-        // TODO: Implement this method
-        return false;
+        return printerService.cancelJob(jobId);
     }
 
     @Override
     public void cancelAll() {
-        // TODO: Implement this method
+        printerService.shutdownAndAwaitTermination();
+        printerService.getPrintQueue().clear();
     }
 }
