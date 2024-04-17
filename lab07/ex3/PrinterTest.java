@@ -19,7 +19,7 @@ public class PrinterTest {
         docs.add(new Document("ex3/text2.txt"));
         docs.add(new Document("ex3/text3.txt"));
 
-        printer.print(docs.getFirst());     // print first document only
+        printer.print(docs.get(0));     // print first document only
         pause(2000);            // wait for a while
 
         printer.print(docs);
