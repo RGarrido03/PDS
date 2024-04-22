@@ -1,7 +1,11 @@
 package ex2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TermFilter implements Filter {
     private final Filter filter;
+    private final List<String> queue = new ArrayList<>();
 
     public TermFilter(Filter filter) {
         this.filter = filter;
@@ -9,11 +13,14 @@ public class TermFilter implements Filter {
 
     @Override
     public boolean hasNext() {
-        return filter.hasNext();
+        return !queue.isEmpty() || filter.hasNext();
     }
 
     @Override
     public String next() {
-        return filter.next().split(" ")[0];
+        if (queue.isEmpty()) {
+            queue.addAll(List.of(filter.next().split(" ")));
+        }
+        return queue.removeFirst();
     }
 }
