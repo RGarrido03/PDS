@@ -1,6 +1,7 @@
 package ex3;
 
-import ex3.startypes.*;
+import ex3.startypes.Star;
+import ex3.startypes.StarFactory;
 
 import java.awt.*;
 import java.util.Random;
@@ -32,19 +33,10 @@ public class Demo {
         System.out.println("Used memory: " + (after - before) / 1024 / 1024 + " MB");
     }
 
-    private static StarType createStar(char type) {
+    private static Star createStar(char type) {
         int x = random(0, CANVAS_SIZE);
         int y = random(0, CANVAS_SIZE);
-        return switch (type) {
-            case 'O' -> new OStar(x, y);
-            case 'A' -> new AStar(x, y);
-            case 'B' -> new BStar(x, y);
-            case 'F' -> new FStar(x, y);
-            case 'G' -> new GStar(x, y);
-            case 'K' -> new KStar(x, y);
-            case 'M' -> new MStar(x, y);
-            default -> null;
-        };
+        return new Star(StarFactory.getStar(type), x, y);
     }
 
     private static int random(int min, int max) {
