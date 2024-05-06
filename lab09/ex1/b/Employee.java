@@ -19,4 +19,13 @@ class Employee {
     public void deposit() {
         bankAccount.deposit(salary);
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "salary=" + salary +
+                ", person=" + person +
+                ", bankAccount=" + bankAccount +
+                '}';
+    }
 }

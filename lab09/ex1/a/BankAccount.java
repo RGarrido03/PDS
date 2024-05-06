@@ -5,6 +5,6 @@ interface BankAccount {
 
     boolean withdraw(double amount);
 
-    double balance();
+    double balance() throws IllegalAccessException;
 }
 

@@ -23,12 +23,12 @@ public class ProxyBankAccount implements BankAccount{
     }
 
     @Override
-    public double balance() {
-        if (Company.user == User.OWNER ){
+    public double balance() throws IllegalAccessException {
+        if (Company.user == User.OWNER ) {
             return bankAccount.balance();
-        } else {
-            return 0;
         }
+
+        throw new IllegalAccessException();
     }
 }
 
