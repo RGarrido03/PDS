@@ -1,10 +1,13 @@
 package ex3;
 
-import ex3.startypes.*;
+import ex3.startypes.Star;
+import ex3.startypes.StarFactory;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Demo {
+    private static final Random random = new Random();
     static int CANVAS_SIZE = 1200;
     static int STARS_TO_DRAW = 1000000;
 
@@ -28,40 +31,15 @@ public class Demo {
 
         long after = runtime.totalMemory() - runtime.freeMemory();
         System.out.println("Used memory: " + (after - before) / 1024 / 1024 + " MB");
-
     }
 
-    private static StarType createStar(char type) {
+    private static Star createStar(char type) {
         int x = random(0, CANVAS_SIZE);
         int y = random(0, CANVAS_SIZE);
-        StarType star = null;
-        switch (type) {
-            case 'O':
-                star = new OStar(x, y);
-                break;
-            case 'A':
-                star = new AStar(x, y);
-                break;
-            case 'B':
-                star = new BStar(x, y);
-                break;
-            case 'F':
-                star = new FStar(x, y);
-                break;
-            case 'G':
-                star = new GStar(x, y);
-                break;
-            case 'K':
-                star = new KStar(x, y);
-                break;
-            case 'M':
-                star = new MStar(x, y);
-                break;
-        }
-        return star;
+        return new Star(StarFactory.getStar(type), x, y);
     }
 
     private static int random(int min, int max) {
-        return min + (int) (Math.random() * ((max - min) + 1));
+        return random.nextInt(min, max + 1);
     }
 }
