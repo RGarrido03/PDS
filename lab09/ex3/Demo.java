@@ -30,7 +30,6 @@ public class Demo {
 
         long after = runtime.totalMemory() - runtime.freeMemory();
         System.out.println("Used memory: " + (after - before) / 1024 / 1024 + " MB");
-
     }
 
     private static StarType createStar(char type) {

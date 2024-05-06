@@ -4,23 +4,21 @@ import java.awt.*;
 
 public abstract class StarType {
 
+    private final CommonProperties commonProperties;
+    private final int x;
+    private final int y;
     protected String description;
     protected Float[] physicalProperties;
-    private int size;
-    private Color color;
-    private int x;
-    private int y;
 
-    public StarType(int size, Color color, int x, int y) {
-        this.size = size;
-        this.color = color;
+    protected StarType(CommonProperties commonProperties, int x, int y) {
+        this.commonProperties = commonProperties;
         this.x = x;
         this.y = y;
     }
 
     public void draw(Graphics g) {
-        g.setColor(color);
-        g.fillOval(x, y, size, size);
+        g.setColor(commonProperties.getColor());
+        g.fillOval(x, y, commonProperties.getSize(), commonProperties.getSize());
     }
 
 }
