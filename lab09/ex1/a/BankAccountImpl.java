@@ -1,11 +1,11 @@
-package ex1;
+package ex1.a;
 
-class BankAccountImpl implements BankAccount {
+public class BankAccountImpl implements BankAccount {
 
     private String bank;
     private double balance;
 
-    BankAccountImpl(String bank, double initialDeposit) {
+    public BankAccountImpl(String bank, double initialDeposit) {
         this.bank = bank;
         balance = initialDeposit;
     }

@@ -1,4 +1,4 @@
-package ex1;
+package ex1.b;
 
 class Person {
 
@@ -7,7 +7,7 @@ class Person {
 
     public Person(String n) {
         name = n;
-        bankAccount = new BankAccountImpl("PeDeMeia", 0);
+        bankAccount = new ProxyBankAccount(new BankAccountImpl("PeDeMeia", 0));
     }
 
     public String getName() {

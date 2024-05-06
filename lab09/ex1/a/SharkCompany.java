@@ -1,4 +1,4 @@
-package ex1;
+package ex1.a;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ public class SharkCompany {
 
         Company shark = new Company();
         Company.user = User.OWNER;
+
         shark.admitPerson("Maria Silva", 1000);
         shark.admitPerson("Manuel Pereira", 900);
         shark.admitPerson("Aurora Machado", 1200);
