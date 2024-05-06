@@ -3,8 +3,10 @@ package ex3;
 import ex3.startypes.*;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Demo {
+    private static final Random random = new Random();
     static int CANVAS_SIZE = 1200;
     static int STARS_TO_DRAW = 1000000;
 
@@ -34,34 +36,19 @@ public class Demo {
     private static StarType createStar(char type) {
         int x = random(0, CANVAS_SIZE);
         int y = random(0, CANVAS_SIZE);
-        StarType star = null;
-        switch (type) {
-            case 'O':
-                star = new OStar(x, y);
-                break;
-            case 'A':
-                star = new AStar(x, y);
-                break;
-            case 'B':
-                star = new BStar(x, y);
-                break;
-            case 'F':
-                star = new FStar(x, y);
-                break;
-            case 'G':
-                star = new GStar(x, y);
-                break;
-            case 'K':
-                star = new KStar(x, y);
-                break;
-            case 'M':
-                star = new MStar(x, y);
-                break;
-        }
-        return star;
+        return switch (type) {
+            case 'O' -> new OStar(x, y);
+            case 'A' -> new AStar(x, y);
+            case 'B' -> new BStar(x, y);
+            case 'F' -> new FStar(x, y);
+            case 'G' -> new GStar(x, y);
+            case 'K' -> new KStar(x, y);
+            case 'M' -> new MStar(x, y);
+            default -> null;
+        };
     }
 
     private static int random(int min, int max) {
-        return min + (int) (Math.random() * ((max - min) + 1));
+        return random.nextInt(min, max + 1);
     }
 }
