@@ -1,9 +1,8 @@
 package ex3;
 
-import javax.swing.*;
-
 import ex3.startypes.StarType;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

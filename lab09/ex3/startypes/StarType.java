@@ -1,12 +1,13 @@
 package ex3.startypes;
+
 import java.awt.*;
 
 public abstract class StarType {
 
-    private int size;
-    private Color color;
     protected String description;
     protected Float[] physicalProperties;
+    private int size;
+    private Color color;
     private int x;
     private int y;
 
@@ -19,7 +20,7 @@ public abstract class StarType {
 
     public void draw(Graphics g) {
         g.setColor(color);
-        g.fillOval(x, y , size, size);
+        g.fillOval(x, y, size, size);
     }
-    
+
 }
