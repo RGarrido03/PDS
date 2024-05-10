@@ -13,7 +13,6 @@ class Company {
     public void admitEmployee(Person person, double salary) {
         Employee e = new Employee(person, salary);
         emps.add(e);
-        emps.
     }
 
     public void paySalaries(int month) {

@@ -10,16 +10,21 @@ class Company {
     private List<Employee> emps = new ArrayList<>();
     private Person person;
 
+    // adapted for Facade design pattern
     public void admitEmployee(Person person, double salary) {
         Employee e = new Employee(person, salary);
         emps.add(e);
-        SocialSecurity.regist(person);
-        Insurance.regist(person);
+        //SocialSecurity.regist(person);
+        //Insurance.regist(person);
         createEmplyeeCard(person);
 
-        if (salary > averageSalaries()){
-            Parking.allow(person);
-        }
+        //if (salary > averageSalaries()){
+        //    Parking.allow(person);
+        //}
+    }
+
+    private void createEmplyeeCard(Person person) {
+        System.out.println("Emplyee card created for " + person.getName());
     }
 
     private double averageSalaries() {
