@@ -1,4 +1,4 @@
-package ex1.b;
+package ex2;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,28 @@ class Company {
     public void admitEmployee(Person person, double salary) {
         Employee e = new Employee(person, salary);
         emps.add(e);
-        emps.
+        SocialSecurity.regist(person);
+        Insurance.regist(person);
+        createEmplyeeCard(person);
+
+        if (salary > averageSalaries()){
+            Parking.allow(person);
+        }
+    }
+
+    private double averageSalaries() {
+        int nEmployees = emps.size();
+        double sum = 0;
+
+        for (Employee e : emps) {
+            sum += e.getSalary();
+        }
+
+        if (nEmployees > 0) {
+            return sum / nEmployees;
+        } else {
+            return 0;
+        }
     }
 
     public void paySalaries(int month) {
