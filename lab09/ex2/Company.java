@@ -13,6 +13,7 @@ class Company {
     public static User user;
     private List<Employee> emps = new ArrayList<>();
     private Person person;
+    private double totalSalaries;
 
     // adapted for Facade design pattern
     public void admitEmployee(Person person, double salary) {
@@ -23,31 +24,19 @@ class Company {
         createEmplyeeCard(person);
         System.out.println();
 
-        if (salary > averageSalaries()){
+        // Add salary Employee to total of salaries
+        totalSalaries += salary;
+        int nEmployees = emps.size();
+
+        if (salary > totalSalaries / emps.size()){
             Parking.allow(person);
         } else {
             System.err.println( person.getName() + " don't have enough salary to have access to the parking lot");
         }
-
     }
 
     private void createEmplyeeCard(Person person) {
         System.out.println("Emplyee card created for " + person.getName());
-    }
-
-    private double averageSalaries() {
-        int nEmployees = emps.size();
-        double sum = 0;
-
-        for (Employee e : emps) {
-            sum += e.getSalary();
-        }
-
-        if (nEmployees > 0) {
-            return sum / nEmployees;
-        } else {
-            return 0;
-        }
     }
 
     public void paySalaries(int month) {
