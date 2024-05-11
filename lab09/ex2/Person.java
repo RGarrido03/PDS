@@ -1,6 +1,6 @@
 package ex2;
 
-class Person {
+public class Person {
 
     private String name;
     private BankAccount bankAccount;

@@ -1,5 +1,7 @@
 package ex2;
 
+import ex2.FacadeClasses.SocialSecurity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +16,7 @@ class Company {
     public void admitEmployee(Person person, double salary) {
         Employee e = new Employee(person, salary);
         emps.add(e);
-        //SocialSecurity.regist(person);
+        SocialSecurity.regist(person);
         //Insurance.regist(person);
         createEmplyeeCard(person);
 
