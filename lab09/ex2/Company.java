@@ -1,5 +1,7 @@
 package ex2;
 
+import ex2.FacadeClasses.Insurance;
+import ex2.FacadeClasses.Parking;
 import ex2.FacadeClasses.SocialSecurity;
 
 import java.util.ArrayList;
@@ -19,10 +21,14 @@ class Company {
         SocialSecurity.regist(person);
         Insurance.regist(person);
         createEmplyeeCard(person);
+        System.out.println();
 
-        //if (salary > averageSalaries()){
-        //    Parking.allow(person);
-        //}
+        if (salary > averageSalaries()){
+            Parking.allow(person);
+        } else {
+            System.err.println( person.getName() + " don't have enough salary to have access to the parking lot");
+        }
+
     }
 
     private void createEmplyeeCard(Person person) {
