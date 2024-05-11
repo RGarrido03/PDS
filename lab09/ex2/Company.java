@@ -17,7 +17,7 @@ class Company {
         Employee e = new Employee(person, salary);
         emps.add(e);
         SocialSecurity.regist(person);
-        //Insurance.regist(person);
+        Insurance.regist(person);
         createEmplyeeCard(person);
 
         //if (salary > averageSalaries()){
