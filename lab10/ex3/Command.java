@@ -1,7 +1,7 @@
 package ex3;
 
 public interface Command<T> {
-    void execute();
+    boolean execute();
 
-    void undo();
+    boolean undo();
 }
