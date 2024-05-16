@@ -1,6 +1,5 @@
 package ex3;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Stack;
@@ -17,22 +16,29 @@ public class AddElementCommand<T> implements Command<T> {
     }
 
     @Override
-    public boolean execute() {
+    public void execute() {
         if (target instanceof ArrayList<T>){
-            return target.add(t);
+            target.add(t);
         } else if (target instanceof  Stack<T>){
-            return target.add(t);
+            target.add(t);
         }
-        return false;
     }
 
+
     @Override
-    public boolean undo() {
+    public void undo() {
         if (target instanceof ArrayList<T>){
-            return ((ArrayList<T>) target).remove(target.size() -1) != null;
+            ((ArrayList<T>) target).remove(target.size() - 1);
         } else if (target instanceof Stack<T>)  {
-            return ((Stack<T>) target).pop() != null;
+            ((Stack<T>) target).pop();
         }
-        return false;
     }
+
+
+    @Override
+    public String toString() {
+        return "Command " + t +
+                " in collection: " + target;
+    }
+
 }
