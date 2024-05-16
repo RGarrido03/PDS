@@ -1,6 +1,5 @@
 package ex3;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.Stack;
 
 public class Invoker<T> {
@@ -10,13 +9,12 @@ public class Invoker<T> {
         commands = new Stack<>();
     }
 
-    public boolean push(Command<T> command){
+    public void push(Command<T> command){
         command.execute();
-        return commands.push(command) != null;
+        commands.push(command);
     }
 
-    public boolean undo(){
-        //Command command = commands.pop();
-        return commands.pop().undo();
+    public void undo(){
+        commands.pop().undo();
     }
 }
