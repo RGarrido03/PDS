@@ -13,12 +13,22 @@ public class Main {
         Command<Integer> addCommand3 = new AddElementCommand<>(initStack, 3);
 
         invoker.push(addCommand1);
+        System.out.println("Added " + addCommand1);
         invoker.push(addCommand2);
+        System.out.println("Added " + addCommand2);
         invoker.push(addCommand3);
+        System.out.println("Added " + addCommand3);
 
+        System.out.println();
 
         invoker.undo();
-        System.out.println("Push to stac");
+        System.out.println("Remove last command given! Updated Stack: " + initStack);
+        invoker.undo();
+        System.out.println("Remove last command given! Updated Stack: " + initStack);
 
+        System.out.println();
+
+        invoker.push(addCommand2);
+        System.out.println("Added " + addCommand2);
     }
 }
