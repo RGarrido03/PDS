@@ -1,6 +1,7 @@
 package ex1;
 
 public class Client extends Person implements Observer {
+
     protected Client(String name) {
         super(name);
     }
