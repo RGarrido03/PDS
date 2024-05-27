@@ -1,7 +1,7 @@
 package ex1;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         //Manager
         Manager m1 = new Manager("Garrido");
@@ -16,6 +16,10 @@ public class Main {
         Client c2 = new Client("Lopes");
         Client c3 = new Client("Ruben");
 
+        // start Auctions
+        System.out.println("Action Starts!");
+        p1.startAuction(200);
+
         //Subscriptions
         m1.subscribe(p1, c2);
         System.out.println("Subscribed to " + p1 + ": " +c2.getName());
@@ -24,8 +28,21 @@ public class Main {
         m1.subscribe(p5, c3);
         System.out.println("Subscribed to " + p2 + ": " +c3.getName());
 
-        
+        System.out.println("Clients will place bids on product 1");
+        Thread.sleep(1000);
+        c1.bid(p1, 2000);
+        Thread.sleep(1000);
+        c2.bid(p1, 4000);
+        Thread.sleep(1000);
+        c3.bid(p1, 6000);
+        Thread.sleep(1000);
+        c2.bid(p1, 8000);
+        Thread.sleep(1000);
+        c1.bid(p1, 4444000);
 
+
+        p1.finishAuction();
+        m1.sell(p1);
 
 
     }

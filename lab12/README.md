@@ -1,3 +1,7 @@
 # Aula12 - Notes
 
-to do
+# Exercicio 1
+## a) 
+Os padrões de Strategy e Template Method.
+
+## b)

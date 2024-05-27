@@ -55,7 +55,7 @@ public class Product {
     }
 
     protected void finishAuction() {
-        System.out.println("Finished Auction for " + this);
+        System.out.println("Finished Auction for " + this.name);
         notifySubscribersThatAuctionEnded();
         if (bestBidder != null) {
             updateState(State.SOLD);
@@ -79,7 +79,7 @@ public class Product {
     }
 
     protected void notifySubscribersThatAuctionEnded() {
-        String notification = "Auction ended for " + this;
+        String notification = "Auction ended for " + this.name + " to " + this.bestBidder.getName() + " by " + this.bestBid;
         manager.notify(this, notification);
     }
 }
