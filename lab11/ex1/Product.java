@@ -1,6 +1,7 @@
 package ex1;
 
 public class Product {
+
     private static int idGenerator = 0;
     private final int id;
     private final String name;
