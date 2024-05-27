@@ -18,6 +18,11 @@ public class Main {
             System.out.print(">> ");
 
             int bookId = scanner.nextInt() - 1;
+
+            if (bookId == -1) {
+                return;
+            }
+
             int operation = scanner.nextInt();
 
             switch (operation) {
@@ -26,9 +31,6 @@ public class Main {
                 case 3 -> library.giveBack(bookId);
                 case 4 -> library.reserve(bookId);
                 case 5 -> library.cancelReservation(bookId);
-                case 0 -> {
-                    return;
-                }
                 default -> System.err.println("Invalid operation");
             }
         }
