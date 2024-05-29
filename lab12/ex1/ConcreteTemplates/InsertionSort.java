@@ -8,6 +8,7 @@ import ex1.Telemovel;
 import java.util.Comparator;
 import java.util.List;
 
+
 public class InsertionSort extends Algoritmo {
     public InsertionSort(SortingFilter sortingFilter, SortingOrder sortingOrder, List<Telemovel> smartphones) {
         super(sortingFilter, sortingOrder, smartphones);
@@ -31,9 +32,9 @@ public class InsertionSort extends Algoritmo {
     public void sort() {
 
         switch (super.getSortingFilter()) {
-            case SortingFilter.RAM -> insertionSort(getSmartphones(), Comparator.comparingInt(Telemovel::getMemory));
-            case SortingFilter.PRICE -> insertionSort(getSmartphones(), Comparator.comparingDouble(Telemovel::getPrice));
-            case SortingFilter.DESCRIPTION -> insertionSort(getSmartphones(), Comparator.comparing(Telemovel::getDescription));
+            case RAM -> insertionSort(getTelemoveis(), Comparator.comparingInt(Telemovel::getMemory));
+            case PRICE -> insertionSort(getTelemoveis(), Comparator.comparingDouble(Telemovel::getPrice));
+            case DESCRIPTION -> insertionSort(getTelemoveis(), Comparator.comparing(Telemovel::getDescription));
         }
     }
 }
