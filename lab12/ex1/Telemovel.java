@@ -2,17 +2,15 @@ package ex1;
 
 public class Telemovel{
 
-    protected static String processador;
-    protected static int preco;
-    protected static int memoria;
-    protected static String camara;
-    protected static String description;
+    protected String processador;
+    protected int preco;
+    protected int memoria;
+    protected String description;
 
-    public Telemovel(String processador, int preco, int memoria, String camara) {
-        Telemovel.processador = processador;
-        Telemovel.preco = preco;
-        Telemovel.memoria = memoria;
-        Telemovel.camara = camara;
+    public Telemovel(int preco, int memoria, String description) {
+        this.preco = preco;
+        this.memoria = memoria;
+        this.description = description;
     }
 
     public int getMemory()
@@ -28,12 +26,10 @@ public class Telemovel{
         return description;
     }
 
-    public String getProcessador(){return processador;}
-
     public String toString(){
         return "Telemovel: " +
-                "processador: " + processador +
-                "Preço:" + preco +
-                "Descrição: " + description;
+                " processador: " + processador +
+                " Preço: " + preco +
+                " Descrição: " + description;
     }
 }

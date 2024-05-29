@@ -8,8 +8,8 @@ import ex1.Telemovel;
 import java.util.Comparator;
 import java.util.List;
 
-
 public class BubbleSort extends Algoritmo {
+
     public BubbleSort(SortingFilter sortingFilter, SortingOrder sortingOrder, List<Telemovel> smartphones) {
         super(sortingFilter, sortingOrder, smartphones);
     }
@@ -37,11 +37,16 @@ public class BubbleSort extends Algoritmo {
     }
 
     public void sort() {
-
         switch (super.getSortingFilter()) {
             case RAM -> bubbleSort(getTelemoveis(), Comparator.comparingInt(Telemovel::getMemory));
             case PRICE -> bubbleSort(getTelemoveis(), Comparator.comparingDouble(Telemovel::getPrice));
             case DESCRIPTION -> bubbleSort(getTelemoveis(), Comparator.comparing(Telemovel::getDescription));
         }
+    }
+
+
+    @Override
+    protected void printSort() {
+        getTelemoveis().forEach(System.out::println);
     }
 }

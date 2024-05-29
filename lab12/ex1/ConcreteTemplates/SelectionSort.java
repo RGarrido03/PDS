@@ -45,7 +45,7 @@ public class SelectionSort extends Algoritmo {
 
     @Override
     protected void printSort() {
-
+        getTelemoveis().forEach(System.out::println);
     }
 
 }

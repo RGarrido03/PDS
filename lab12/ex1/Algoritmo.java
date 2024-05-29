@@ -16,9 +16,13 @@ public abstract class Algoritmo {
     }
 
     // Template method
-    protected abstract void printSort();
+    public final void performSorting(){
+        sort();
+        printSort();
+    }
 
-    abstract void AscDesc();
+    protected abstract void printSort();
+    protected abstract void sort();
 
     protected List<Telemovel> getTelemoveis() {
         return telemoveis;
@@ -27,7 +31,10 @@ public abstract class Algoritmo {
     protected SortingFilter getSortingFilter() {
         return sortingFilter;
     }
+    protected SortingOrder getSortingOrder() {
+        return sortingOrder;
+    }
 
-    public abstract void sort();
+
 }
 
