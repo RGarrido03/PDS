@@ -16,7 +16,7 @@ public abstract class Algoritmo {
     }
 
     // Template method
-    protected abstract void printSorted();
+    abstract void printSort();
 
     abstract void AscDesc();
 

@@ -15,10 +15,6 @@ public class Telemovel{
         Telemovel.camara = camara;
     }
 
-    public void setAlgoritmo(Algoritmo algoritmo) {
-        System.out.println("Iniciando algoritmo" + algoritmo);
-    }
-
     public int getMemory()
     {
         return memoria;
@@ -30,5 +26,14 @@ public class Telemovel{
 
     public String getDescription() {
         return description;
+    }
+
+    public String getProcessador(){return processador;}
+
+    public String toString(){
+        return "Telemovel: " +
+                "processador: " + processador +
+                "Preço:" + preco +
+                "Descrição: " + description;
     }
 }
