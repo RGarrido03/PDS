@@ -5,6 +5,7 @@ import ex1.SortingFilter;
 import ex1.SortingOrder;
 import ex1.Telemovel;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,13 +17,20 @@ public class BogoSort extends Algoritmo {
 
     public static <T> void bogoSort(List<T> list, Comparator<? super T> comparator)
     {
-        for (int i = 0; i < list.size(); i++) {
+        while (true) {
+            boolean sorted = true;
+            for (int i = 1; i < list.size(); i++) {
+                if (comparator.compare(list.get(i-1), list.get(i)) > 0) {
+                    sorted = false;
+                    break;
+                }
+            }
 
-            int index1 = (int) (Math.random() * list.size()), index2 = (int) (Math.random() * list.size());
-            int a = list.indexOf(index1);
-            list.indexOf(index1) = list.indexOf(index2);
-            list.indexOf(index2) = a;
+            if (sorted) break;
+
+            Collections.shuffle(list);
         }
+
     }
 
     public void sort() {
