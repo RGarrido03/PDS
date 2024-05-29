@@ -1,0 +1,12 @@
+=== InputStream e OutputStream ===
+Em ambas as classes, o métodos read() e close() são abstratos, ao contrário de outros métodos (ex: skip() e reset()), de
+modo a que cada classe que estenda esta primeira implemente read() e close() à sua maneira.
+Este é um exemplo de template, onde alguns métodos comuns a todas as implementações já se encontram implementados, e os
+restantes, específicos de cada subclasse, se encontram por definir.
+
+// TODO
+=== Reader ===
+Os métodos read() e close() são abstratos, ao contrário de outros métodos (ex: skip() e reset()), de
+modo a que cada classe que estenda esta primeira implemente read() e close() à sua maneira.
+Este é um exemplo de template, onde alguns métodos comuns a todas as implementações já se encontram implementados, e os
+restantes, específicos de cada subclasse, se encontram por definir.
