@@ -8,11 +8,13 @@ import ex1.Telemovel;
 import java.util.Comparator;
 import java.util.List;
 
+
 public class SelectionSort extends Algoritmo {
 
     public SelectionSort(SortingFilter sortingFilter, SortingOrder sortingOrder, List<Telemovel> telemoveis) {
         super(sortingFilter, sortingOrder, telemoveis);
     }
+
 
     // Custom sorting method using selection sort algorithm
     public static <T> void selectionSort(List<T> list, Comparator<? super T> comparator) {
@@ -34,10 +36,16 @@ public class SelectionSort extends Algoritmo {
     @Override
     public void sort() {
         switch (super.getSortingFilter()){
-            case SortingFilter.RAM -> selectionSort(getSmartphones(), Comparator.comparingInt(Telemovel::getMemory));
-            case SortingFilter.PRICE -> selectionSort(getSmartphones(), Comparator.comparingDouble(Telemovel::getPrice));
-            case SortingFilter.DESCRIPTION -> selectionSort(getSmartphones(), Comparator.comparing(Telemovel::getDescription));
+            case RAM -> selectionSort(getTelemoveis(), Comparator.comparingInt(Telemovel::getMemory));
+            case PRICE -> selectionSort(getTelemoveis(), Comparator.comparingDouble(Telemovel::getPrice));
+            case DESCRIPTION -> selectionSort(getTelemoveis(), Comparator.comparing(Telemovel::getDescription));
         }
+    }
+
+
+    @Override
+    protected void printSort() {
+        getTelemoveis().forEach(System.out::println);
     }
 
 }
