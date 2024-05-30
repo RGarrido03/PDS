@@ -4,9 +4,19 @@ modo a que cada classe que estenda esta primeira implemente read() e close() à 
 Este é um exemplo de template, onde alguns métodos comuns a todas as implementações já se encontram implementados, e os
 restantes, específicos de cada subclasse, se encontram por definir.
 
-// TODO
 === Reader ===
-Os métodos read() e close() são abstratos, ao contrário de outros métodos (ex: skip() e reset()), de
-modo a que cada classe que estenda esta primeira implemente read() e close() à sua maneira.
-Este é um exemplo de template, onde alguns métodos comuns a todas as implementações já se encontram implementados, e os
-restantes, específicos de cada subclasse, se encontram por definir.
+Conseguimos verificar bem o padrão Template Method nesta classe abstrata de read(char[], int, int) e close() em que
+todas as suas subclasses têm ter obrigatoriamente estes métodos onde é lido uma stream de characteres. Pode acontecer
+que alguns métodos das subclasses irão realizar o override da super Class que poderá aumentar eficiência e/ou
+funcionalidade.
+
+Essas subclasses são por exemplo o BufferedReader ou InputStreamReader que fornecem implementações especificas para
+alguns métodos tais como:
+
+// Marca a posição do momento na stream.
+ - public void mark(int readAheadLimit)
+          throws IOException
+
+// Faz o reset da stream, se foi anteriormente marcada (mark()) tenta voltar à posição dessa marca.
+ - public void reset()
+           throws IOException

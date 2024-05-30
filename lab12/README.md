@@ -5,3 +5,6 @@
 Os padrões de Strategy e Template Method.
 
 ## b)
+
+![img.png](img.png)
+
